@@ -11,6 +11,16 @@
                             <img src="{{ asset('storage/' . $course->thumbnail) }}"
                                 style="height: 100%; width:100%; object-fit:cover;" alt="" />
                         </div>
+                        <div class="it-evn-details-rate mb-15">
+                            <span>
+                                <i class="fa-sharp fa-solid fa-star"></i>
+                                <i class="fa-sharp fa-solid fa-star"></i>
+                                <i class="fa-sharp fa-solid fa-star"></i>
+                                <i class="fa-sharp fa-solid fa-star"></i>
+                                <i class="fa-sharp fa-solid fa-star"></i>
+                                (5.0)
+                            </span>
+                        </div>
                         <h4 class="it-evn-details-title mb-0 pb-5">
                             {{ $course->title }}
                         </h4>
