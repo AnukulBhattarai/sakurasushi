@@ -6,7 +6,9 @@ use App\Models\Career;
 use App\Models\Categories;
 use App\Models\FooterNotice;
 use App\Models\Header;
+use App\Models\Images;
 use App\Models\Organization;
+use App\Models\Program;
 use App\Models\Service;
 use App\Models\Setting;
 use Illuminate\Support\Facades\View;
@@ -24,11 +26,15 @@ class AppServiceProvider extends ServiceProvider
             $services = Service::where('status', true)->latest()->get();
             $appointment = Setting::where('key', 'appointment')->first();
             $categoriesNav = Categories::with('program')->latest()->get();
+            $coursesFooter = Program::where('status', true)->inRandomOrder()->take(4)->get();
+            $footerImages = Images::take(6)->get();
             $view->with([
                 'organization' => $organization,
                 'services' => $services,
                 'appointment' => $appointment,
                 'categoriesNav' => $categoriesNav,
+                'coursesFooter' => $coursesFooter,
+                'footerImages' => $footerImages,
             ]);
         });
         View::composer(['pages.home'], function ($view) {

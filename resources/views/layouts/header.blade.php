@@ -6,7 +6,7 @@
         </div>
         <div class="itoffcanvas__logo">
             <a href="{{ route('home') }}">
-                <img src="{{ asset('img/logo/logo.jpg') }}" alt="" />
+                <img src="{{ asset('img/logo/logo.jpg') }}" style="height: 60px;" alt="" />
             </a>
         </div>
         <div class="itoffcanvas__text">
@@ -160,7 +160,7 @@
                     <div class="col-xl-2 col-6">
                         <div class="it-header-5-logo">
                             <a href="{{ route('home') }}"><img src="{{ asset('img/logo/logo.jpg') }}"
-                                    alt="" /></a>
+                                    style="height: 65px;" alt="" /></a>
                         </div>
                     </div>
 
@@ -193,9 +193,15 @@
                                             @endforeach
                                         </ul>
                                     </li>
+                                    <li><a href="{{ route('event') }}">Events</a>
+                                    </li>
+                                    <li class="has-dropdown"><a href="#">Media</a>
+                                        <ul class="it-submenu submenu">
+                                            <li><a href="{{ route('blogs') }}">Blogs</a></li>
+                                            <li><a href="{{ route('gallery') }}">Gallery</a></li>
+                                        </ul>
+                                    </li>
 
-                                    <li><a href="{{ route('blogs') }}">Blogs</a></li>
-                                    <li><a href="{{ route('event') }}">Events</a></li>
                                     <li><a href="{{ route('contact') }}">Contact</a></li>
                                 </ul>
                             </nav>

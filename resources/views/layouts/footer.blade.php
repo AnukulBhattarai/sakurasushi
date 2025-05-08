@@ -6,12 +6,16 @@
                  <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-50">
                      <div class="it-footer-widget footer-col-1">
                          <div class="it-footer-logo pb-25">
-                             <a href=index-html.html><img src="{{ asset('img/logo/logo.png') }}" alt=""></a>
+                             <a href=index-html.html><img src="{{ asset('img/logo/logo.png') }}" height="100px"
+                                     alt=""></a>
                          </div>
-                         <div class="it-footer-text pb-5">
-                             <p>Interdum velit laoreet id donec ultrices <br> tincidunt arcu. Tincidunt tortor
-                                 aliquam nulla facilisi cras fermentum odio eu.</p>
-                         </div>
+                         @isset($organization->other['slogan'])
+                             <div class="it-footer-text pb-5">
+                                 <p>
+                                     {{ $organization->other['slogan'] }}
+                                 </p>
+                             </div>
+                         @endisset
                          <div class=it-footer-social>
                              <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
                              <a href="#"><i class="fa-brands fa-instagram"></i></a>
@@ -22,17 +26,13 @@
                  </div>
                  <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-50">
                      <div class="it-footer-widget footer-col-2">
-                         <h4 class=it-footer-title>our services:</h4>
+                         <h4 class=it-footer-title>our Courses:</h4>
                          <div class=it-footer-list>
                              <ul>
-                                 <li><a href="#"><i class="fa-regular fa-angle-right"></i>Web development</a>
-                                 </li>
-                                 <li><a href="#"><i class="fa-regular fa-angle-right"></i>UI/UX Design</a>
-                                 </li>
-                                 <li><a href="#"><i class="fa-regular fa-angle-right"></i>Management</a></li>
-                                 <li><a href="#"><i class="fa-regular fa-angle-right"></i>Digital
-                                         Marketing</a></li>
-                                 <li><a href="#"><i class="fa-regular fa-angle-right"></i>Blog News</a></li>
+                                 @foreach ($coursesFooter as $item)
+                                     <li><a href="{{ route('course.detail', $item->id) }}"><i
+                                                 class="fa-regular fa-angle-right"></i>{{ $item->title }}</a></li>
+                                 @endforeach
                              </ul>
                          </div>
                      </div>
@@ -42,14 +42,15 @@
                          <h4 class=it-footer-title>quick links:</h4>
                          <div class=it-footer-list>
                              <ul>
-                                 <li><a href="#"><i class="fa-regular fa-angle-right"></i>templates</a></li>
-                                 <li><a href="#"><i class="fa-regular fa-angle-right"></i>blog and
-                                         article</a></li>
-                                 <li><a href="#"><i class="fa-regular fa-angle-right"></i>integrations</a>
+                                 <li><a href="{{ route('about') }}"><i class="fa-regular fa-angle-right"></i>about</a>
                                  </li>
-                                 <li><a href="#"><i class="fa-regular fa-angle-right"></i>webinars</a></li>
-                                 <li><a href="#"><i class="fa-regular fa-angle-right"></i>privacy &
-                                         policy</a></li>
+                                 <li><a href="{{ route('blogs') }}"><i class="fa-regular fa-angle-right"></i>blogs</a>
+                                 </li>
+                                 <li><a href="{{ route('event') }}"><i class="fa-regular fa-angle-right"></i>events</a>
+                                 </li>
+                                 <li><a href="{{ route('gallery') }}"><i
+                                             class="fa-regular fa-angle-right"></i>contact</a>
+                                 </li>
                              </ul>
                          </div>
                      </div>
@@ -59,36 +60,14 @@
                          <h4 class=it-footer-title>Gallery</h4>
                          <div class=it-footer-gallery-box>
                              <div class="row gx-5">
-                                 <div class="col-md-4 col-4">
-                                     <div class="it-footer-thumb mb-10">
-                                         <img src="{{ asset('img/footer/thumb-1-1.png') }}" alt="">
+                                 @foreach ($footerImages as $image)
+                                     <div class="col-md-4 col-4">
+                                         <div class="it-footer-thumb mb-10" style="height: 88px; overflow: hidden;">
+                                             <img src="{{ asset('storage/' . $image->image) }}"
+                                                 style="height: 100%; width:100%; object-fit:cover;" alt="">
+                                         </div>
                                      </div>
-                                 </div>
-                                 <div class="col-md-4 col-4">
-                                     <div class="it-footer-thumb mb-10">
-                                         <img src="{{ asset('img/footer/thumb-1-2.png') }}" alt="">
-                                     </div>
-                                 </div>
-                                 <div class="col-md-4 col-4 mb-10">
-                                     <div class=it-footer-thumb>
-                                         <img src="{{ asset('img/footer/thumb-1-3.png') }}" alt="">
-                                     </div>
-                                 </div>
-                                 <div class="col-md-4 col-4">
-                                     <div class=it-footer-thumb>
-                                         <img src="{{ asset('img/footer/thumb-1-4.png') }}" alt="">
-                                     </div>
-                                 </div>
-                                 <div class="col-md-4 col-4">
-                                     <div class=it-footer-thumb>
-                                         <img src="{{ asset('img/footer/thumb-1-5.png') }}" alt="">
-                                     </div>
-                                 </div>
-                                 <div class="col-md-4 col-4">
-                                     <div class=it-footer-thumb>
-                                         <img src="{{ asset('img/footer/thumb-1-6.png') }}" alt="">
-                                     </div>
-                                 </div>
+                                 @endforeach
                              </div>
                          </div>
                      </div>
