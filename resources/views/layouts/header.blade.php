@@ -6,7 +6,7 @@
         </div>
         <div class="itoffcanvas__logo">
             <a href="{{ route('home') }}">
-                <img src="{{ asset('img/logo/logo-white.png') }}" alt="" />
+                <img src="{{ asset('img/logo/logo.jpg') }}" alt="" />
             </a>
         </div>
         <div class="itoffcanvas__text">
@@ -159,7 +159,7 @@
                 <div class="row align-items-center">
                     <div class="col-xl-2 col-6">
                         <div class="it-header-5-logo">
-                            <a href="{{ route('home') }}"><img src="{{ asset('img/logo/logo-black.png') }}"
+                            <a href="{{ route('home') }}"><img src="{{ asset('img/logo/logo.jpg') }}"
                                     alt="" /></a>
                         </div>
                     </div>

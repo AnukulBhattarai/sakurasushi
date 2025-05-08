@@ -6,7 +6,7 @@
                  <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-50">
                      <div class="it-footer-widget footer-col-1">
                          <div class="it-footer-logo pb-25">
-                             <a href=index-html.html><img src="{{ asset('img/logo/logo-white.png') }}" alt=""></a>
+                             <a href=index-html.html><img src="{{ asset('img/logo/logo.png') }}" alt=""></a>
                          </div>
                          <div class="it-footer-text pb-5">
                              <p>Interdum velit laoreet id donec ultrices <br> tincidunt arcu. Tincidunt tortor
@@ -96,7 +96,7 @@
              </div>
          </div>
      </div>
-     <div class="it-copyright-area it-copyright-height">
+     {{-- <div class="it-copyright-area it-copyright-height">
          <div class=container>
              <div class=row>
                  <div class="col-12 wow itfadeUp" data-wow-duration=.9s data-wow-delay=.3s>
@@ -106,5 +106,5 @@
                  </div>
              </div>
          </div>
-     </div>
+     </div> --}}
  </footer>
