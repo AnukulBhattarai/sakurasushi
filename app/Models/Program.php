@@ -30,4 +30,14 @@ class Program extends Model
     {
         return $this->belongsTo(Categories::class, 'category_id');
     }
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class)->withTimestamps()->withPivot('enrolled_at');
+    }
+
+    public function leads()
+    {
+        return $this->hasMany(Leads::class);
+    }
 }

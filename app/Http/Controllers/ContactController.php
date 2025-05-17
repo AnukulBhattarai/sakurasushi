@@ -18,22 +18,19 @@ class ContactController extends Controller
     }
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
-            'contact' => 'required',
+            'phone' => 'required',
             'message' => 'required|string',
-            'service' => 'nullable|string',
-            'program_id' => 'sometimes|exists:programs,id',
         ]);
 
         $message = Message::create([
             'name' => $request->name,
             'email' => $request->email,
-            'number' => $request->contact,
+            'number' => $request->phone,
             'message' => $request->message,
-            'service' => $request->service,
-            'program_id' => $request->program_id,
         ]);
         return redirect()->back()->withSuccess('Message sent successfully');
     }

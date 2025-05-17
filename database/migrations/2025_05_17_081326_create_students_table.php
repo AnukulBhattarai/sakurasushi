@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('leads', function (Blueprint $table) {
+        Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('email');
             $table->string('phone');
-            $table->date('date_of_visit');
-            $table->enum('status', ['joined', 'pending', 'rejected'])->default('pending');
-            $table->foreignId('program_id')->constrained('programs')->onDelete('cascade');
+            $table->string('payment_remaining')->nullable();
+            $table->json('extra')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('leads');
+        Schema::dropIfExists('students');
     }
 };

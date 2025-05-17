@@ -35,6 +35,54 @@
 
     @include('layouts.footer')
 
+    @if (session()->has('success'))
+        <div class="toast-container position-fixed" style="z-index: 11; right: 1rem; bottom: 1rem;">
+            <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert"
+                aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        {{ session('success') }}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="toast-container position-fixed" style="z-index: 11; right: 1rem; bottom: 1rem;">
+            <div id="errorToast" class="toast align-items-center text-white bg-danger border-0" role="alert"
+                aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        {{ $errors->first() }}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize and show the success toast if it exists
+            var successToastEl = document.getElementById('successToast');
+            if (successToastEl) {
+                var successToast = new bootstrap.Toast(successToastEl);
+                successToast.show();
+            }
+
+            // Initialize and show the error toast if it exists
+            var errorToastEl = document.getElementById('errorToast');
+            if (errorToastEl) {
+                var errorToast = new bootstrap.Toast(errorToastEl);
+                errorToast.show();
+            }
+        });
+    </script>
+
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/waypoints.js') }}"></script>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>

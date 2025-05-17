@@ -47,7 +47,7 @@ class AdminPanelController extends Controller
 
     public function messages()
     {
-        $messages = Message::with('program')->simplePaginate(15);
+        $messages = Message::latest()->simplePaginate(15);
         // dd($messages);
         return view('admin.pages.messages.index', compact('messages'));
     }

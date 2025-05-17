@@ -20,7 +20,7 @@
             @csrf
             <div class="newsletter-items">
                 <div class="form-clt wow fadeInUp" data-wow-delay=".5s">
-                    <input type="text" name="email" id="email" placeholder="Email Address">
+                    <input type="email" name="email" id="email" placeholder="Email Address">
                 </div>
                 <button class="theme-btn wow fadeInUp" data-wow-delay=".7s" type="submit">
                     <span>Subscribe Now</span>

@@ -12,6 +12,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HeaderController;
 use App\Http\Controllers\HomeBannerController;
+use App\Http\Controllers\LeadController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PageTitleController;
@@ -36,7 +37,7 @@ Route::get('/print', function () {
 Route::get('/contact', [ContactController::class, 'contact'])->name('contact');
 Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
 
-// Route::post('/newsletter/store', [ContactController::class, 'newsletter'])->name('newsletter');
+Route::post('/newsletter/store', [ContactController::class, 'newsletter'])->name('newsletter');
 
 
 Route::get('/courses', [WebpageController::class, 'courses'])->name('courses');
@@ -223,4 +224,14 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/admin/messages', [AdminPanelController::class, 'messages'])->name('message.index');
     Route::get('/detach-image', [AdminPanelController::class, 'detach_image'])->name('detach.image');
+});
+Route::middleware('auth')->group(function () {
+
+    Route::get('/student-management/leads', [LeadController::class, 'index'])->name('lead.index');
+    Route::get('/student-management/leads/create', [LeadController::class, 'create'])->name('lead.create');
+    Route::post('/student-management/leads/store', [LeadController::class, 'store'])->name('lead.store');
+    Route::get('/student-management/leads/edit/{lead}', [LeadController::class, 'edit'])->name('lead.edit');
+    Route::post('/student-management/leads/update/{lead}', [LeadController::class, 'update'])->name('lead.update');
+    Route::post('/student-management/leads/delete/{lead}', [LeadController::class, 'destroy'])->name('lead.destroy');
+    Route::get('/student-management/leads/status-change/{lead}', [LeadController::class, 'change_status'])->name('lead.status');
 });

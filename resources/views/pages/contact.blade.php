@@ -28,20 +28,18 @@
                                             </div>
                                             <div class="it-contact__text">
                                                 <span>Our Address</span>
-                                                <a href="#">1564 Goosetown Drive <br />
-                                                    Matthews, NC 28105</a>
+                                                <a href="#">{{ $organization->address }}</a>
                                             </div>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="it-contact__list d-flex align-items-start">
                                             <div class="it-contact__icon">
-                                                <span><i class="fa-solid fa-clock"></i></span>
+                                                <span><i class="fa-solid fa-envelope"></i></span>
                                             </div>
                                             <div class="it-contact__text">
-                                                <span>Hours of Operation</span>
-                                                <a href="#">Mon - Fri: 9.00am to 5.00pm</a>
-                                                <span>[2nd sat Holiday]</span>
+                                                <span>Mail</span>
+                                                <a href="mailto:{{ $organization->email }}">{{ $organization->email }}</a>
                                             </div>
                                         </div>
                                     </li>
@@ -52,8 +50,7 @@
                                             </div>
                                             <div class="it-contact__text">
                                                 <span>contact</span>
-                                                <a href="tel:+99358954565">+99- 35895-4565</a>
-                                                <a href="mailto:supportyou@info.com">supportyou@info.com</a>
+                                                <a href="tel:{{ $organization->phone }}">{{ $organization->phone }}</a>
                                             </div>
                                         </div>
                                     </li>
@@ -61,65 +58,69 @@
                             </div>
                             <div class="it-contact__bottom-box d-flex align-items-center justify-content-between">
                                 <div class="it-contact__scrool smooth">
-                                    <a href="#it-newsletter"><i class="fa-solid fa-arrow-down"></i>Customer Care</a>
+                                    <a><i class="fa-solid fa-arrow-down"></i>Customer Care</a>
                                 </div>
                                 <div class="it-footer-social">
-                                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                                    <a href="#"><i class="fa-brands fa-pinterest-p"></i></a>
-                                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                                    @isset($organization->facebook)
+                                        <a href="{{ $organization->facebook }}"><i class="fa-brands fa-facebook-f"></i></a>
+                                    @endisset
+                                    @isset($organization->instagram)
+                                        <a href="{{ $organization->instagram }}"><i class="fa-brands fa-instagram"></i></a>
+                                    @endisset
+                                    @isset($organization->twitter)
+                                        <a href="{{ $organization->twitter }}"><i class="fa-brands fa-twitter"></i></a>
+                                    @endisset
+                                    @isset($organization->linkedin)
+                                        <a href="{{ $organization->linkedin }}"><i class="fa-brands fa-linkedin"></i></a>
+                                    @endisset
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-5">
                         <div class="it-contact__form-box">
-                            <form action="#">
+                            <form action="{{ route('contact.store') }}" method="post">
+                                @csrf
                                 <div class="row">
                                     <div class="col-12 mb-25">
                                         <div class="it-contact-input-box">
                                             <label>Name*</label>
-                                            <input type="text" placeholder="Name" />
+                                            <input type="text" placeholder="Name" name="name" required />
                                         </div>
                                     </div>
                                     <div class="col-12 mb-25">
                                         <div class="it-contact-input-box">
                                             <label>Email Address*</label>
-                                            <input type="email" placeholder="Email" />
+                                            <input type="email" placeholder="Email" name="email" required />
                                         </div>
                                     </div>
                                     <div class="col-12 mb-25">
                                         <div class="it-contact-input-box">
                                             <label>Phone*</label>
-                                            <input type="text" placeholder="Phone" />
-                                        </div>
-                                    </div>
-                                    <div class="col-12 mb-25">
-                                        <div class="it-contact-input-box">
-                                            <label>Subject*</label>
-                                            <input type="text" placeholder="Subject" />
+                                            <input type="text" placeholder="Phone" name="phone" required />
                                         </div>
                                     </div>
                                     <div class="col-12 mb-25">
                                         <div class="it-contact-textarea-box">
                                             <label>Message</label>
-                                            <textarea placeholder="Message"></textarea>
+                                            <textarea placeholder="Message" name="message"></textarea>
                                         </div>
                                     </div>
                                 </div>
+                                <button type="submit" class="it-btn">
+                                    <span>
+                                        Send Message
+                                        <svg width="17" height="14" viewBox="0 0 17 14" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M11 1.24023L16 7.24023L11 13.2402" stroke="currentcolor"
+                                                stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                            <path d="M1 7.24023H16" stroke="currentcolor" stroke-width="1.5"
+                                                stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </span>
+                                </button>
                             </form>
-                            <button type="submit" class="it-btn">
-                                <span>
-                                    Send Message
-                                    <svg width="17" height="14" viewBox="0 0 17 14" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M11 1.24023L16 7.24023L11 13.2402" stroke="currentcolor" stroke-width="1.5"
-                                            stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M1 7.24023H16" stroke="currentcolor" stroke-width="1.5"
-                                            stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                </span>
-                            </button>
                         </div>
                     </div>
                 </div>

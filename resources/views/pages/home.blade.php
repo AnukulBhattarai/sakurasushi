@@ -61,8 +61,11 @@
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6">
                         <div class="it-newsletter-right p-relative text-end">
-                            <input type=text placeholder="Enter your email:">
-                            <button class="it-btn black-bg" type=submit><span>subscribe now</span></button>
+                            <form action="{{ route('newsletter') }}" method="post">
+                                @csrf
+                                <input type="email" name="email" placeholder="Enter your email:">
+                                <button class="it-btn black-bg" type=submit><span>subscribe now</span></button>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -11,23 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('leads', function (Blueprint $table) {
+        Schema::create('program_student', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone');
-            $table->date('date_of_visit');
-            $table->enum('status', ['joined', 'pending', 'rejected'])->default('pending');
             $table->foreignId('program_id')->constrained('programs')->onDelete('cascade');
+            $table->foreignId('student_id')->constrained('students')->onDelete('cascade');
+            $table->timestamp('enrolled_at')->useCurrent();
             $table->timestamps();
+            $table->unique(['program_id', 'student_id']);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('leads');
+        Schema::dropIfExists('program_student');
     }
 };
