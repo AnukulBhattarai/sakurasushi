@@ -108,7 +108,7 @@ class LeadController extends Controller
                 'phone' => $lead->phone,
                 'payment_remaining' => $course->price,
             ]);
-            $student->courses()->attach($course->id, [
+            $student->program()->attach($course->id, [
                 'enrolled_at' => now(),
             ]);
             $lead->update([
@@ -119,8 +119,6 @@ class LeadController extends Controller
                 'status' => $request->status,
             ]);
         }
-
-
         return redirect()->route('lead.index')->with('success', 'Lead status updated successfully.');
     }
 }

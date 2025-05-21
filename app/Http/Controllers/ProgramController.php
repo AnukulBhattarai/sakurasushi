@@ -84,7 +84,8 @@ class ProgramController extends Controller
      */
     public function edit(Program $program)
     {
-        return view('admin.pages.program.edit', ['program' => $program]);
+        $categories = Categories::get();
+        return view('admin.pages.program.edit', compact('program', 'categories'));
     }
 
     /**
@@ -99,6 +100,8 @@ class ProgramController extends Controller
             'duration' => 'nullable|string',
             'instructor' => 'nullable|string|max:128',
             'price' => 'nullable|string',
+            'category_id' => 'required|exists:categories,id',
+            'curriculum' => 'nullable|string',
             'thumbnail' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
         if ($request->hasFile('thumbnail')) {
@@ -107,12 +110,19 @@ class ProgramController extends Controller
             $path = $image->storeAs('programs', $profile, 'public');
             $program->update(['thumbnail' => $path]);
         }
+
+        $extra = [
+            'curriculum' => $request->curriculum ?? null,
+        ];
+        // dd($extra);
         $program->update([
             'title' => $request->title,
             'description' => $request->description,
             'duration' => $request->duration,
             'instructor' => $request->instructor,
+            'category_id' => $request->category_id,
             'price' => $request->price,
+            'extra' => $extra,
         ]);
         if ($request->hasFile('image')) {
             foreach ($request->file('image') as $file) {

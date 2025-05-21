@@ -9,7 +9,7 @@
     <title>Sakura</title>
     <meta name=description content="">
     <meta name=viewport content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/logo/logo.jpg') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/logo/logo.png') }}">
     <link rel=stylesheet href="{{ asset('css/bootstrap.min.css') }}">
     <link rel=stylesheet href="{{ asset('css/animate.css') }}">
     <link rel=stylesheet href="{{ asset('css/custom-animation.css') }}">
@@ -34,6 +34,38 @@
     @yield('body')
 
     @include('layouts.footer')
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/1234567890" class="whatsapp-button" target="_blank" aria-label="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <style>
+        .whatsapp-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .whatsapp-button:hover {
+            background-color: #1ebea5;
+        }
+    </style>
+
+    <!-- Font Awesome CDN -->
+
 
     @if (session()->has('success'))
         <div class="toast-container position-fixed" style="z-index: 11; right: 1rem; bottom: 1rem;">

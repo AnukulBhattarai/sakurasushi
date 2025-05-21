@@ -1,5 +1,5 @@
  @props(['testimonials'])
- <div class="it-testimonial-5-area it-testimonial-style-2 p-relative pt-120 pb-120">
+ <div class="it-testimonial-5-area it-testimonial-style-2 p-relative pt-100 pb-100">
      <div class="it-testimonial-5-shape-5 d-none d-xl-block">
          <img src="{{ asset('img/testimonial/shape-5-6.png') }}" alt="" />
      </div>

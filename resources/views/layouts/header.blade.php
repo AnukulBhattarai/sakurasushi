@@ -6,7 +6,7 @@
         </div>
         <div class="itoffcanvas__logo">
             <a href="{{ route('home') }}">
-                <img src="{{ asset('img/logo/logo.jpg') }}" style="height: 60px;" alt="" />
+                <img src="{{ asset('img/logo/logo.png') }}" style="height: 60px;" alt="" />
             </a>
         </div>
         <div class="itoffcanvas__text">
@@ -159,7 +159,7 @@
                 <div class="row align-items-center">
                     <div class="col-xl-2 col-6">
                         <div class="it-header-5-logo">
-                            <a href="{{ route('home') }}"><img src="{{ asset('img/logo/logo.jpg') }}"
+                            <a href="{{ route('home') }}"><img src="{{ asset('img/logo/logo.png') }}"
                                     style="height: 65px;" alt="" /></a>
                         </div>
                     </div>
@@ -183,7 +183,8 @@
                                                         <a href="#">{{ $category->name }}</a>
                                                         <ul class="submenu">
                                                             @foreach ($category->program as $program)
-                                                                <li><a
+                                                                <li>
+                                                                    <a
                                                                         href="{{ route('course.detail', $program->id) }}">{{ $program->title }}</a>
                                                                 </li>
                                                             @endforeach
@@ -234,12 +235,11 @@
                             position: absolute;
                             top: 100%;
                             left: 0;
-                            min-width: 180px;
+                            min-width: 200px;
                             background-color: #fff;
                             border: 1px solid #ddd;
                             display: none;
                             z-index: 1000;
-                            white-space: nowrap;
                             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
                         }
 

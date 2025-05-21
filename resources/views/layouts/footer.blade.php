@@ -17,10 +17,18 @@
                              </div>
                          @endisset
                          <div class=it-footer-social>
-                             <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                             <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                             <a href="#"><i class="fa-brands fa-pinterest-p"></i></a>
-                             <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                             @isset($organization->facebook)
+                                 <a href="{{ $organization->facebook }}"><i class="fa-brands fa-facebook-f"></i></a>
+                             @endisset
+                             @isset($organization->instagram)
+                                 <a href="{{ $organization->instagram }}"><i class="fa-brands fa-instagram"></i></a>
+                             @endisset
+                             @isset($organization->linkedin)
+                                 <a href="{{ $organization->linkedin }}"><i class="fab fa-linkedin"></i></a>
+                             @endisset
+                             @isset($organization->twitter)
+                                 <a href="{{ $organization->twitter }}"><i class="fa-brands fa-twitter"></i></a>
+                             @endisset
                          </div>
                      </div>
                  </div>

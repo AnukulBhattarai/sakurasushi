@@ -1,5 +1,5 @@
  @props(['team'])
- <div class="it-team-area p-relative pt-120 pb-120">
+ <div class="it-team-area p-relative pt-100 pb-100">
      <div class="it-team-shape-1 d-none d-xl-block">
          <img src="{{ asset('img/team/shape-1-1.png') }}" alt="">
      </div>

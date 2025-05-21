@@ -18,7 +18,7 @@ class Student extends Model
         'extra' => 'array',
     ];
 
-    public function courses()
+    public function program()
     {
         return $this->belongsToMany(Program::class)->withTimestamps()->withPivot('enrolled_at');
     }

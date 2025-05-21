@@ -127,4 +127,33 @@
             </div>
         </div>
     </div>
+
+    <section class="container px-0">
+        @isset($organization->location)
+            @php
+                $iframeCode = $organization->location;
+
+                // Regular expression to extract the src URL
+                preg_match('/src="([^"]+)"/', $iframeCode, $matches);
+
+                $srcLink = $matches[1] ?? null; // The link inside src attribute
+            @endphp
+            <style>
+                .map-height {
+                    height: 450px;
+                }
+
+                @media (max-width: 768px) {
+                    .map-height {
+                        height: 300px;
+                    }
+                }
+            </style>
+            <div class="w-100 map-height">
+                <iframe src="{{ $srcLink }}" width="100%" height="100%" style="border:0;" allowfullscreen=""
+                    loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        @endisset
+    </section>
 @endsection

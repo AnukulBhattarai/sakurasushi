@@ -1,4 +1,4 @@
-<div class="it-video-area it-video-bg p-relative fix pt-100 pb-95" data-background="{{ asset('img/video/bg-1-1.jpg') }}">
+<div class="it-video-area it-video-bg p-relative fix pt-100 pb-95" data-background="{{ asset('img/video/banner.jpg') }}">
     <div class="it-video-shape-1 d-none d-lg-block">
         <img src="{{ asset('img/video/shape-1-1.png') }}" alt="" />
     </div>

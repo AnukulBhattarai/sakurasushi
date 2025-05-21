@@ -112,6 +112,13 @@ class WebpageController extends Controller
         return view('pages.videos', compact('videos'));
     }
 
+
+    public function categoryCourses($id)
+    {
+        $category = Categories::with('program')->findOrFail($id);
+        return view('pages.courses.category-list', compact('category'));
+    }
+
     public function courses()
     {
         $courses = Program::where('status', true)->latest()->simplePaginate(15);

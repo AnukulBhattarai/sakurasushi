@@ -29,7 +29,7 @@
                 rows="15">{{ $program->description }}</textarea>
 
             <p class="mt-3">Curriculum</p>
-            <textarea class="form-control" name="curriculum" id="description" placeholder="Enter course curriculum" rows="15">{{ $program->description }}</textarea>
+            <textarea class="form-control" name="curriculum" id="description" placeholder="Enter course curriculum" rows="15">{{ $program->extra['curriculum'] ?? '' }}</textarea>
 
 
             <p class="mt-4">Existing Thumbnail</p>

@@ -1,5 +1,5 @@
 @props(['choose'])
-<div class="it-choose-area p-relative pt-180 pb-110">
+<div class="it-choose-area p-relative pt-180 pb-100">
     <div class="it-choose-shape-4 d-none d-md-block">
         <img src="{{ asset('img/choose/shape-1-4.png') }}" alt="">
     </div>

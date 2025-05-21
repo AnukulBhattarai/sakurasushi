@@ -34,7 +34,7 @@
                         </div> --}}
                         <div class=it-category-text>
                             <h4 class=it-category-title>{{ $category->name }}</h4>
-                            <a href=course-details.html>
+                            <a href="{{ route('category.courses', $category->id) }}">
                                 {{ count($category->program) ?? 0 }} Programs
                                 <span>
                                     <svg width=16 height=13 viewBox="0 0 16 13" fill=none

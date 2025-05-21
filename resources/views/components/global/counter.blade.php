@@ -1,5 +1,5 @@
 @props(['counter'])
-<section class="counter-section fix">
+<section class="counter-section fix mt-5">
     <div class="line-shape">
         <img src="{{ asset('img/counter/line-shape.png') }}" alt="shape-img">
     </div>

@@ -16,13 +16,17 @@ use App\Http\Controllers\LeadController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PageTitleController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\UserController;
+use App\Models\Student;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WebpageController::class, 'home'])->name('home');
@@ -38,6 +42,9 @@ Route::get('/contact', [ContactController::class, 'contact'])->name('contact');
 Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
 
 Route::post('/newsletter/store', [ContactController::class, 'newsletter'])->name('newsletter');
+
+
+Route::get('/category-courses/{id}', [WebpageController::class, 'categoryCourses'])->name('category.courses');
 
 
 Route::get('/courses', [WebpageController::class, 'courses'])->name('courses');
@@ -234,4 +241,31 @@ Route::middleware('auth')->group(function () {
     Route::post('/student-management/leads/update/{lead}', [LeadController::class, 'update'])->name('lead.update');
     Route::post('/student-management/leads/delete/{lead}', [LeadController::class, 'destroy'])->name('lead.destroy');
     Route::get('/student-management/leads/status-change/{lead}', [LeadController::class, 'change_status'])->name('lead.status');
+
+
+
+    Route::get('/student-management/students', [StudentController::class, 'index'])->name('student.index');
+    Route::get('/student-management/students/create', [StudentController::class, 'create'])->name('student.create');
+    Route::post('/student-management/students/store', [StudentController::class, 'store'])->name('student.store');
+    Route::get('/student-management/students/show/{student}', [StudentController::class, 'show'])->name('student.show');
+    Route::get('/student-management/students/edit/{student}', [StudentController::class, 'edit'])->name('student.edit');
+    Route::post('/student-management/students/update/{student}', [StudentController::class, 'update'])->name('student.update');
+    Route::post('/student-management/students/delete/{student}', [StudentController::class, 'destroy'])->name('student.destroy');
+
+    Route::get('/student-management/students/search', [StudentController::class, 'search'])->name('student.search');
+
+
+    Route::post('/student-management/payments/store/{student}', [PaymentController::class, 'store'])->name('payments.store');
+});
+
+
+Route::get('/students/search', function (Request $request) {
+    $query = $request->get('q');
+
+    return response()->json(
+        Student::where('name', 'like', "%{$query}%")
+            ->select('id', 'name', 'email')
+            ->limit(10)
+            ->get()
+    );
 });

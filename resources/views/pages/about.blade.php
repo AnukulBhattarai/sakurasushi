@@ -13,6 +13,9 @@
         <x-homepage.choose :choose="$choose" />
     @endisset
 
+    @if ($team->count() > 0)
+        <x-homepage.team :team="$team" />
+    @endif
 
     @if ($testimonials->count() > 0)
         <x-homepage.testimonial :testimonials="$testimonials" />
