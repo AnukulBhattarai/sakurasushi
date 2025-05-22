@@ -36,7 +36,8 @@
     @include('layouts.footer')
 
     <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/1234567890" class="whatsapp-button" target="_blank" aria-label="Chat on WhatsApp">
+    <a href="https://wa.me/{{ $organization->phone }}" class="whatsapp-button" target="_blank"
+        aria-label="Chat on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
