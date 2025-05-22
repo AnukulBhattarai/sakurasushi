@@ -29,14 +29,14 @@
                     </div>
                 </div>
             @endisset
-            @isset($organization->phone)
+            @isset($organization->mobile)
                 <div class="it-info-wrapper mb-20 d-flex align-items-center">
                     <div class=itoffcanvas__info-icon>
                         <a href="#"><i class="fal fa-phone-alt"></i></a>
                     </div>
                     <div class=itoffcanvas__info-address>
                         <span>Phone</span>
-                        <a href="tel:{{ $organization->phone }}">{{ $organization->phone }}</a>
+                        <a href="tel:{{ $organization->mobile }}">{{ $organization->mobile }}</a>
                     </div>
                 </div>
             @endisset
