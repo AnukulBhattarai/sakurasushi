@@ -32,8 +32,7 @@
                     Dashboard
                 </a>
 
-                <a
-                    class="nav-link sidebar-link {{ request()->routeIs('lead.*') ? 'active' : '' }}
+                <a class="nav-link sidebar-link {{ request()->routeIs('lead.*') ? 'active' : '' }}"
                     href="{{ route('lead.index') }}">
                     Interested Students
                 </a>
@@ -41,6 +40,10 @@
                 <a class="nav-link sidebar-link {{ request()->routeIs('student.*') ? 'active' : '' }}"
                     href="{{ route('student.index') }}">
                     Students
+                </a>
+                <a class="nav-link sidebar-link {{ request()->routeIs('payments.*') ? 'active' : '' }}"
+                    href="{{ route('payments.index') }}">
+                    Payments
                 </a>
                 <!-- Add more links here -->
             </ul>

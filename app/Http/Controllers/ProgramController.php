@@ -39,6 +39,7 @@ class ProgramController extends Controller
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'instructor' => 'nullable|string|max:128',
             'price' => 'nullable|string',
+            'discount' => 'nullable|string',
             'category_id' => 'required|exists:categories,id',
             'curriculum' => 'nullable|string',
         ]);
@@ -57,6 +58,7 @@ class ProgramController extends Controller
             'duration' => $request->duration,
             'instructor' => $request->instructor,
             'price' => $request->price,
+            'discount' => $request->discount ?? 0,
             'thumbnail' => $path,
             'category_id' => $request->category_id,
             'extra' => $extra,
@@ -100,6 +102,7 @@ class ProgramController extends Controller
             'duration' => 'nullable|string',
             'instructor' => 'nullable|string|max:128',
             'price' => 'nullable|string',
+            'discount' => 'nullable|string',
             'category_id' => 'required|exists:categories,id',
             'curriculum' => 'nullable|string',
             'thumbnail' => 'image|mimes:jpeg,png,jpg|max:2048',
@@ -122,6 +125,7 @@ class ProgramController extends Controller
             'instructor' => $request->instructor,
             'category_id' => $request->category_id,
             'price' => $request->price,
+            'discount' => $request->discount ?? 0,
             'extra' => $extra,
         ]);
         if ($request->hasFile('image')) {

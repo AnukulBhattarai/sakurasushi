@@ -26,6 +26,8 @@
                         @if (!in_array($key, $hidden_field))
                             @if ($key == 'program_id')
                                 <th scope="col">Course</th>
+                            @elseif ($key == 'student_id')
+                                <th scope="col">Student</th>
                             @else
                                 <th scope="col">{{ Str::ucfirst($key) }}</th>
                             @endif
@@ -33,8 +35,9 @@
                     @endforeach
 
 
-
-                    <th>Actions</th>
+                    @if (!is_null($view_route) || !is_null($edit_route) || !is_null($delete_route) || $action)
+                        <th scope="col">Actions</th>
+                    @endif
                 </thead>
                 <tbody class="table-border-bottom-0">
 
@@ -53,6 +56,7 @@
                             @endisset --}}
 
                             @foreach ($value->getAttributes() as $key => $val)
+                                {{-- {{ dd($value) }} --}}
                                 @if (!in_array($key, $hidden_field))
                                     <td>
                                         @if ($key == 'description')
@@ -70,6 +74,14 @@
                                         @elseif ($key == 'program_id')
                                             @isset($value->program->title)
                                                 {{ $value->program->title }}
+                                            @else
+                                                @foreach ($value->program as $program)
+                                                    {{ $program->title }}
+                                                @endforeach
+                                            @endisset
+                                        @elseif ($key == 'student_id')
+                                            @isset($value->student->name)
+                                                {{ $value->student->name }}
                                             @endisset
                                         @elseif($status_route && $key == 'status')
                                             <form action="{{ route($status_route, $value->id) }}">

@@ -5,15 +5,32 @@ namespace App\Http\Controllers;
 use App\Models\Payment;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $payments = Payment::with('student')
+            ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('paid_at', [
+                    Carbon::parse($startDate)->startOfDay(),
+                    Carbon::parse($endDate)->endOfDay()
+                ]);
+            }, function ($query) {
+                // Default: today
+                $query->whereDate('paid_at', Carbon::today());
+            })
+            ->orderBy('paid_at', 'desc')
+            ->paginate(10);
+
+        return view('pages.payments.index', compact('payments', 'startDate', 'endDate'));
     }
 
     /**

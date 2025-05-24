@@ -23,6 +23,8 @@
 
             <x-admin.input name="price" label="Course price" placeholder="Enter Course price" />
 
+            <x-admin.input name="discount" label="Course Discount Percentage" placeholder="Enter Course Discount" />
+
             <p class="mt-3">Description</p>
             <textarea class="form-control" name="description" id="description" placeholder="Enter blog description" rows="15">{{ old('description') }}</textarea>
 

@@ -15,6 +15,9 @@
 
             <x-admin.input name="price" label="Course price" placeholder="Enter Course price" :oldvalue="$program->price" />
 
+            <x-admin.input name="discount" label="Course Discount Percentage" placeholder="Enter Course Discount"
+                :oldvalue="$program->discount" />
+
             <p class="mt-3">Category</p>
             <select name="category_id" class="form-control">
                 <option value="null">select</option>

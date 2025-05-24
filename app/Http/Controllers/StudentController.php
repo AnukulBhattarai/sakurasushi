@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Payment;
 use App\Models\Program;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Dipesh\NepaliDate\NepaliDate;
 
 class StudentController extends Controller
 {
@@ -14,6 +16,13 @@ class StudentController extends Controller
     public function index()
     {
         $students = Student::with('program')->latest()->simplePaginate(15);
+
+        $students->getCollection()->transform(function ($student) {
+            // Get the first program ID or null if none exists
+            $student->program_id = $student->program->pluck('id')->first();
+            return $student;
+        });
+
         return view('pages.students.index', compact('students'));
     }
 
@@ -36,21 +45,38 @@ class StudentController extends Controller
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:20',
             'program_id' => 'required|exists:programs,id',
+            'payment_remaining' => 'required|numeric|min:0',
         ]);
         // dd($request->all());
 
         $program = Program::find($request->program_id);
 
 
-        $payment_remaining = $program->price;
-
         $student = Student::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'payment_remaining' => $payment_remaining,
+            'payment_remaining' => $request->payment_remaining,
         ]);
+
+        $today = date('Y-m-d');
+
+        // Create a new instance of NepaliDate with today's date
+        // $nepaliDate = new NepaliDate($today);
+
+        $amount = $program->price - $request->payment_remaining;
+
+
+        $payment = Payment::create([
+            'student_id' => $student->id,
+            'amount' => $amount,
+            'method' => 'Discount',
+            'note' => 'Discount',
+            'paid_at' => now(), // Use current timestamp
+        ]);
+        // dd($payment);
         $program->students()->attach($student->id);
+
         return redirect()->route('student.index')->with('success', 'Student created successfully.');
     }
 

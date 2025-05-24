@@ -20,7 +20,7 @@
                     </div>
 
                     <x-student.table :values="$students" edit_route="student.edit" delete_route="student.destroy"
-                        view_route="student.show" status_route="student.status" :hidden_field="['id', 'slug', 'created_at', 'extra', 'updated_at']" />
+                        view_route="student.show" status_route="student.status" :hidden_field="['id', 'email', 'slug', 'created_at', 'extra', 'updated_at']" />
                 </div>
             </div>
         </div>

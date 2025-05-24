@@ -5,7 +5,9 @@
     <div class="it-student-area py-5">
         <div class="container">
             <div class="row">
-                <div class="col-xl-12">
+                <x-student.sidebar />
+
+                <div class="col-md-9">
                     <div class="it-student-bg">
                         <h4 class="it-student-title">Student Registration</h4>
                         <div class="it-student-content mb-70">
@@ -41,6 +43,13 @@
                                             </select>
                                         </div>
                                     </div>
+
+                                    <div class="it-student-regiform-item">
+                                        <label>Payment Remaining</label>
+                                        <input type="number" name="payment_remaining" placeholder="Payment Due" />
+                                    </div>
+
+
                                     <div class="it-student-regiform-btn">
                                         <button class="it-btn w-100">
                                             <span>

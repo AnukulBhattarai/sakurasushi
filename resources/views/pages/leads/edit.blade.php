@@ -4,7 +4,9 @@
     <div class="it-student-area py-5">
         <div class="container">
             <div class="row">
-                <div class="col-xl-12">
+                <x-student.sidebar />
+
+                <div class="col-md-9">
                     <div class="it-student-bg">
                         <div class="it-student-regiform">
                             <form action="{{ route('lead.update', $lead->id) }}" method="post">

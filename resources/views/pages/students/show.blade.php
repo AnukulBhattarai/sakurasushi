@@ -5,116 +5,121 @@
     {{-- {{ dd($student) }} --}}
 
     <div class="container py-5">
-        <div class="card shadow rounded-4 p-5">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2 class="mb-0">Student Details</h2>
-                    @if ($student->payment_remaining == 0)
-                        <div>
-                            <div class="container text-center my-5">
-                                <button onclick="printInvoice()" class="btn btn-secondary">
-                                    Print Invoice
-                                </button>
+        <div class="row">
+            <x-student.sidebar />
+            <div class="col-md-9">
+                <div class="card shadow rounded-4 p-5">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="mb-0">Student Details</h2>
+                            @if ($student->payment_remaining == 0)
+                                <div>
+                                    <div class="container text-center my-5">
+                                        <button onclick="printInvoice()" class="btn btn-secondary">
+                                            Print Invoice
+                                        </button>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+
+
+                        <div class="row mb-3">
+                            <div class="col-md-4"><strong>Name:</strong></div>
+                            <div class="col-md-8">{{ $student->name }}</div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4"><strong>Email:</strong></div>
+                            <div class="col-md-8">{{ $student->email ?? '-' }}</div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4"><strong>Phone:</strong></div>
+                            <div class="col-md-8">{{ $student->phone ?? '-' }}</div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4"><strong>Joined At:</strong></div>
+                            <div class="col-md-8">{{ $student->created_at->format('d M Y') }}</div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4"><strong>Fees Due</strong></div>
+                            <div class="col-md-8">₹{{ $student->payment_remaining }}</div>
+                        </div>
+
+
+                        {{-- Enrolled Programs --}}
+                        <div class="card shadow rounded-4 mb-4">
+                            <div class="card-body">
+                                <h4 class="mb-3">Enrolled Programs</h4>
+
+                                @if ($student->program->isEmpty())
+                                    <p class="text-muted">No programs enrolled.</p>
+                                @else
+                                    <table class="table table-bordered">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Program</th>
+                                                <th>Enrolled At</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($student->program as $course)
+                                                <tr>
+                                                    <td>{{ $course->title }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($course->pivot->enrolled_at)->format('d M Y') }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                @endif
                             </div>
                         </div>
-                    @endif
-                </div>
 
+                        {{-- Payment History --}}
+                        <div class="card shadow rounded-4">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4 class="mb-0">Payment History</h4>
+                                    <!-- Add Payment Button -->
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#addPaymentModal">
+                                        + Add Payment
+                                    </button>
+                                </div>
 
-                <div class="row mb-3">
-                    <div class="col-md-4"><strong>Name:</strong></div>
-                    <div class="col-md-8">{{ $student->name }}</div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-4"><strong>Email:</strong></div>
-                    <div class="col-md-8">{{ $student->email ?? '-' }}</div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-4"><strong>Phone:</strong></div>
-                    <div class="col-md-8">{{ $student->phone ?? '-' }}</div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-4"><strong>Joined At:</strong></div>
-                    <div class="col-md-8">{{ $student->created_at->format('d M Y') }}</div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-4"><strong>Fees Due</strong></div>
-                    <div class="col-md-8">₹{{ $student->payment_remaining }}</div>
-                </div>
-
-
-                {{-- Enrolled Programs --}}
-                <div class="card shadow rounded-4 mb-4">
-                    <div class="card-body">
-                        <h4 class="mb-3">Enrolled Programs</h4>
-
-                        @if ($student->program->isEmpty())
-                            <p class="text-muted">No programs enrolled.</p>
-                        @else
-                            <table class="table table-bordered">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th>Program</th>
-                                        <th>Enrolled At</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($student->program as $course)
-                                        <tr>
-                                            <td>{{ $course->title }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($course->pivot->enrolled_at)->format('d M Y') }}
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        @endif
-                    </div>
-                </div>
-
-                {{-- Payment History --}}
-                <div class="card shadow rounded-4">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h4 class="mb-0">Payment History</h4>
-                            <!-- Add Payment Button -->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#addPaymentModal">
-                                + Add Payment
-                            </button>
+                                @if ($student->payments->isEmpty())
+                                    <p class="text-muted">No payments recorded.</p>
+                                @else
+                                    <table class="table table-bordered">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Amount</th>
+                                                <th>Paid On</th>
+                                                <th>Method</th>
+                                                <th>Note</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($student->payments as $payment)
+                                                <tr>
+                                                    <td>₹{{ number_format($payment->amount, 2) }}</td>
+                                                    <td>{{ $payment->paid_at }}</td>
+                                                    <td>{{ ucfirst($payment->method) ?? '-' }}</td>
+                                                    <td>{{ $payment->note ?? '-' }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                @endif
+                            </div>
                         </div>
 
-                        @if ($student->payments->isEmpty())
-                            <p class="text-muted">No payments recorded.</p>
-                        @else
-                            <table class="table table-bordered">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th>Amount</th>
-                                        <th>Paid On</th>
-                                        <th>Method</th>
-                                        <th>Note</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($student->payments as $payment)
-                                        <tr>
-                                            <td>₹{{ number_format($payment->amount, 2) }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($payment->paid_at)->format('d M Y') }}</td>
-                                            <td>{{ ucfirst($payment->method) ?? '-' }}</td>
-                                            <td>{{ $payment->note ?? '-' }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        @endif
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

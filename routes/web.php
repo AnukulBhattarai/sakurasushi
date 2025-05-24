@@ -254,8 +254,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/student-management/students/search', [StudentController::class, 'search'])->name('student.search');
 
-
+    Route::get('/student-management/payments', [PaymentController::class, 'index'])->name('payments.index');
+    Route::get('/student-management/payments/create/{student}', [PaymentController::class, 'create'])->name('payments.create');
     Route::post('/student-management/payments/store/{student}', [PaymentController::class, 'store'])->name('payments.store');
+    Route::get('/student-management/payments/edit/{payment}', [PaymentController::class, 'edit'])->name('payments.edit');
+    Route::post('/student-management/payments/update/{payment}', [PaymentController::class, 'update'])->name('payments.update');
 });
 
 
