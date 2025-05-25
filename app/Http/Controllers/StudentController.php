@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Anuzpandey\LaravelNepaliDate\LaravelNepaliDate;
 use App\Models\Payment;
 use App\Models\Program;
 use App\Models\Student;
@@ -13,9 +14,19 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $students = Student::with('program')->latest()->simplePaginate(15);
+        $query = $request->input('q');
+
+        $students = Student::with('program')
+            ->when($query, function ($q) use ($query) {
+                $q->where(function ($subQuery) use ($query) {
+                    $subQuery->where('name', 'like', "%{$query}%")
+                        ->orWhere('phone', 'like', "%{$query}%");
+                });
+            })
+            ->latest()
+            ->simplePaginate(15);
 
         $students->getCollection()->transform(function ($student) {
             // Get the first program ID or null if none exists
@@ -59,22 +70,24 @@ class StudentController extends Controller
             'payment_remaining' => $request->payment_remaining,
         ]);
 
-        $today = date('Y-m-d');
 
         // Create a new instance of NepaliDate with today's date
         // $nepaliDate = new NepaliDate($today);
 
         $amount = $program->price - $request->payment_remaining;
 
+        $engDate = date('Y-m-d');
+
+        $paid_at =  LaravelNepaliDate::from($engDate)->toNepaliDate();
 
         $payment = Payment::create([
             'student_id' => $student->id,
             'amount' => $amount,
             'method' => 'Discount',
             'note' => 'Discount',
-            'paid_at' => now(), // Use current timestamp
+            'paid_at' => $paid_at, // Use current timestamp
         ]);
-        // dd($payment);
+
         $program->students()->attach($student->id);
 
         return redirect()->route('student.index')->with('success', 'Student created successfully.');

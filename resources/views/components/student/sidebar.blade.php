@@ -29,9 +29,13 @@
             <ul class="nav flex-column">
                 <a class="nav-link sidebar-link {{ request()->is('dashboard') ? 'active' : '' }}"
                     href="{{ route('dashboard') }}">
-                    Dashboard
+                    Admin Dashboard
                 </a>
 
+                <a class="nav-link sidebar-link {{ request()->routeIs('search.student') ? 'active' : '' }}"
+                    href="{{ route('search.student') }}">
+                    Search Students
+                </a>
                 <a class="nav-link sidebar-link {{ request()->routeIs('lead.*') ? 'active' : '' }}"
                     href="{{ route('lead.index') }}">
                     Interested Students

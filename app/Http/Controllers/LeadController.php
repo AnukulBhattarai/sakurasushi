@@ -53,9 +53,10 @@ class LeadController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Leads $leads)
+    public function show(Leads $lead)
     {
-        //
+        $lead->load('program');
+        return view('pages.leads.show', compact('lead'));
     }
 
     /**

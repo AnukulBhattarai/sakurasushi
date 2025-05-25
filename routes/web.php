@@ -237,6 +237,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/student-management/leads', [LeadController::class, 'index'])->name('lead.index');
     Route::get('/student-management/leads/create', [LeadController::class, 'create'])->name('lead.create');
     Route::post('/student-management/leads/store', [LeadController::class, 'store'])->name('lead.store');
+    Route::get('/student-management/leads/show/{lead}', [LeadController::class, 'show'])->name('lead.show');
     Route::get('/student-management/leads/edit/{lead}', [LeadController::class, 'edit'])->name('lead.edit');
     Route::post('/student-management/leads/update/{lead}', [LeadController::class, 'update'])->name('lead.update');
     Route::post('/student-management/leads/delete/{lead}', [LeadController::class, 'destroy'])->name('lead.destroy');
@@ -252,7 +253,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/student-management/students/update/{student}', [StudentController::class, 'update'])->name('student.update');
     Route::post('/student-management/students/delete/{student}', [StudentController::class, 'destroy'])->name('student.destroy');
 
-    Route::get('/student-management/students/search', [StudentController::class, 'search'])->name('student.search');
+    Route::get('/student-management/students/search', [StudentController::class, 'search'])->name('search.student');
 
     Route::get('/student-management/payments', [PaymentController::class, 'index'])->name('payments.index');
     Route::get('/student-management/payments/create/{student}', [PaymentController::class, 'create'])->name('payments.create');
@@ -262,13 +263,23 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::get('/students/search', function (Request $request) {
+Route::get('/students/table', function (Request $request) {
     $query = $request->get('q');
 
-    return response()->json(
-        Student::where('name', 'like', "%{$query}%")
-            ->select('id', 'name', 'email')
-            ->limit(10)
-            ->get()
-    );
+    $students = Student::with('program')
+        ->when($query, function ($q) use ($query) {
+            $q->where(function ($subQuery) use ($query) {
+                $subQuery->where('name', 'like', "%{$query}%")
+                    ->orWhere('phone', 'like', "%{$query}%");
+            });
+        })
+        ->latest()
+        ->simplePaginate(15);
+
+    $students->getCollection()->transform(function ($student) {
+        $student->program_id = $student->program->pluck('id')->first();
+        return $student;
+    });
+
+    return view('components.student._table', compact('students'))->render();
 });

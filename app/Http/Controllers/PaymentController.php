@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Anuzpandey\LaravelNepaliDate\LaravelNepaliDate;
 use App\Models\Payment;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -14,8 +15,16 @@ class PaymentController extends Controller
      */
     public function index(Request $request)
     {
-        $startDate = $request->input('start_date');
-        $endDate = $request->input('end_date');
+        if ($request->input('start_date')) {
+            $startDate =  LaravelNepaliDate::from($request->input('start_date'))->toNepaliDate();
+        } else {
+            $startDate = null;
+        }
+        if ($request->input('end_date')) {
+            $endDate =  LaravelNepaliDate::from($request->input('end_date'))->toNepaliDate();
+        } else {
+            $endDate = null;
+        }
 
         $payments = Payment::with('student')
             ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
@@ -24,8 +33,9 @@ class PaymentController extends Controller
                     Carbon::parse($endDate)->endOfDay()
                 ]);
             }, function ($query) {
-                // Default: today
-                $query->whereDate('paid_at', Carbon::today());
+                $engDate = date('Y-m-d');
+                $paid_at =  LaravelNepaliDate::from($engDate)->toNepaliDate();
+                $query->whereDate('paid_at', $paid_at);
             })
             ->orderBy('paid_at', 'desc')
             ->paginate(10);
@@ -59,12 +69,14 @@ class PaymentController extends Controller
         }
         $student->update(['payment_remaining' => $payment_remaining]);
 
+        $paid_at =  LaravelNepaliDate::from($request->paid_at)->toNepaliDate();
+
         $payment = Payment::create([
             'student_id' => $student->id,
             'amount' => $request->amount,
             'method' => $request->method,
             'note' => $request->note,
-            'paid_at' => $request->paid_at,
+            'paid_at' => $paid_at,
         ]);
 
         return redirect()->route('student.show', $student)->with('success', 'Payment recorded successfully.');
