@@ -42,7 +42,7 @@
             <div class="col-xl-5 col-lg-5 col-md-3 col-sm-3">
                 <div class="it-video-play-wrap d-flex justify-content-start justify-content-md-end align-items-center">
                     <div class="it-video-play text-center">
-                        <a class="popup-video play" href="https://www.youtube.com/watch?v=PO_fBTkoznc"><i
+                        <a class="popup-video play" href="https://www.youtube.com/watch?v=TJ1e8hHFe6s"><i
                                 class="fas fa-play"></i></a>
                         <a class="text" href="#">watch now</a>
                     </div>
