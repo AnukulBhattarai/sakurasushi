@@ -8,9 +8,9 @@
                         style="height: 100%; width:100%; object-fit:cover;" alt="">
                 </div>
             </div>
-            <div class=it-team-social-box>
+            <div class="it-team-social-box">
                 <button><i class="fa-sharp fa-light fa-share-nodes"></i></button>
-                <div class=it-team-social>
+                <div class="it-team-social">
                     @isset($team->facebook)
                         <a href="{{ $team->facebook }}"><i class="fa-brands fa-facebook"></i></a>
                     @endisset

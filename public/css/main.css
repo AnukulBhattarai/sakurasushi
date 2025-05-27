@@ -9211,7 +9211,7 @@ only screen and (min-width: 992px) and (max-width: 1199px),
 
 .it-team-social {
     position: absolute;
-    bottom: -155px;
+    top: 55px;
     left: 50%;
     padding: 5px 13px;
     background-color: var(--it-common-white);

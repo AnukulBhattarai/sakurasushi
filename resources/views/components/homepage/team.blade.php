@@ -24,13 +24,8 @@
                                          stroke="#0AB99D" stroke-width=3 stroke-linecap=round />
                                  </svg>
                              </span>
-                             <br>Instructor
+                             <br>Instructors
                          </h4>
-                     </div>
-                     <div class=it-team-text>
-                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                             incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                             exercitation ullamco laboris..</p>
                      </div>
                      <div class=it-team-button>
                          <a class="it-btn mr-15" href={{ route('contact') }}>
