@@ -55,9 +55,9 @@
             <div class="carousel-item active"
                 style="background-image: url('{{ asset('storage/' . $hero->background) }}'); height: 100vh;">
                 <div class="hero-overlay">
-                    <div class="hero-content text-start">
-                        <h1 class="mb-2">Develop Your Skills with Online Courses From A Pro</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
+                    <div class="hero-content text-center">
+                        <h1 class="mb-2">{{ $hero->title }}</h1>
+                        <p>{{ $hero->sub_title }}
                         </p>
 
                     </div>
