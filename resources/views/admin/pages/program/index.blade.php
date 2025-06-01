@@ -18,12 +18,17 @@
                 @endforeach
             </select>
 
-
             <x-admin.input name="instructor" label="Course instructor" placeholder="Enter course instructor" />
 
             <x-admin.input name="price" label="Course price" placeholder="Enter Course price" />
 
             <x-admin.input name="discount" label="Course Discount Percentage" placeholder="Enter Course Discount" />
+
+            <x-admin.input name="skill" label="Course Skill Level" placeholder="Enter Course Skill Level" />
+
+            <x-admin.input name="class_day" label="Course Class Days" placeholder="Enter Class Days" />
+
+            <x-admin.input name="language" label="Course Language" placeholder="Enter Course Language" />
 
             <p class="mt-3">Description</p>
             <textarea class="form-control" name="description" id="description" placeholder="Enter blog description" rows="15">{{ old('description') }}</textarea>
@@ -46,6 +51,16 @@
 
 
     <x-admin.table :values="$program" edit_route="program.edit" view_route="program.show" delete_route="program.destroy"
-        :hidden_field="['id', 'duration', 'age_group', 'method', 'thumbnail', 'extra', 'created_at', 'updated_at']" status_route="program.status" />
+        :hidden_field="[
+            'id',
+            'duration',
+            'discount',
+            'age_group',
+            'method',
+            'thumbnail',
+            'extra',
+            'created_at',
+            'updated_at',
+        ]" status_route="program.status" />
 
 @endsection

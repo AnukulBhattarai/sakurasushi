@@ -17,6 +17,7 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         $query = $request->input('q');
+        $paymentStatus = $request->input('payment_status');
 
         $students = Student::with('program')
             ->when($query, function ($q) use ($query) {
@@ -25,17 +26,23 @@ class StudentController extends Controller
                         ->orWhere('phone', 'like', "%{$query}%");
                 });
             })
+            ->when($paymentStatus === 'paid', function ($q) {
+                $q->where('payment_remaining', 0);
+            })
+            ->when($paymentStatus === 'due', function ($q) {
+                $q->where('payment_remaining', '>', 0);
+            })
             ->latest()
             ->simplePaginate(15);
 
         $students->getCollection()->transform(function ($student) {
-            // Get the first program ID or null if none exists
             $student->program_id = $student->program->pluck('id')->first();
             return $student;
         });
 
         return view('pages.students.index', compact('students'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -56,25 +63,24 @@ class StudentController extends Controller
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:20',
             'program_id' => 'required|exists:programs,id',
-            'payment_remaining' => 'required|numeric|min:0',
+            'discount' => 'required|numeric|min:0',
         ]);
         // dd($request->all());
 
         $program = Program::find($request->program_id);
 
+        $payment_remaining = $program->price - $request->discount;
 
         $student = Student::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'payment_remaining' => $request->payment_remaining,
+            'payment_remaining' => $payment_remaining,
         ]);
 
 
         // Create a new instance of NepaliDate with today's date
         // $nepaliDate = new NepaliDate($today);
-
-        $amount = $program->price - $request->payment_remaining;
 
         $engDate = date('Y-m-d');
 
@@ -82,7 +88,7 @@ class StudentController extends Controller
 
         $payment = Payment::create([
             'student_id' => $student->id,
-            'amount' => $amount,
+            'amount' => $request->discount,
             'method' => 'Discount',
             'note' => 'Discount',
             'paid_at' => $paid_at, // Use current timestamp

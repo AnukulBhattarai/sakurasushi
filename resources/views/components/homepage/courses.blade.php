@@ -3,9 +3,6 @@
     <div class="it-course-shape-1 d-none d-xl-block">
         <img src="{{ asset('img/course/shape-1-1.png') }}" alt="">
     </div>
-    <div class="it-course-shape-2 d-none d-xxl-block">
-        <img src="{{ asset('img/course/shape-1-2.png') }}" alt="">
-    </div>
     <div class="it-course-shape-3 d-none d-xl-block">
         <img src="{{ asset('img/course/shape-1-3.png') }}" alt="">
     </div>
@@ -16,17 +13,9 @@
         <div class=row>
             <div class=col-xl-12>
                 <div class="it-course-title-box text-center mb-70">
-                    <span class=it-section-subtitle>Top Popular Course</span>
+                    <span class=it-section-subtitle-2>Top Popular Course</span>
                     <h4 class=it-section-title>Histudy Course
-                        <span class="p-relative z-index">student
-                            <svg class=title-shape-2 width=168 height=65 viewBox="0 0 168 65" fill=none
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M73.3761 8.49147C78.4841 6.01353 82.5722 4.25154 88.8933 3.3035C94.2064 2.50664 99.6305 2.0701 104.981 1.94026C120.426 1.56549 135.132 4.90121 146.506 9.70405C158.628 14.8228 166.725 22.5638 166.074 31.6501C165.291 42.5779 151.346 51.7039 133.508 56.8189C110.253 63.4874 81.7065 63.8025 58.5605 60.8285C37.5033 58.123 11.6304 51.7165 3.58132 40.0216C-3.43085 29.8337 12.0728 18.1578 27.544 11.645C40.3656 6.24763 55.7082 2.98328 70.8043 4.08403C81.9391 4.89596 93.2164 6.87822 102.462 9.99561C112.874 13.5066 120.141 18.5932 127.862 23.6332"
-                                    stroke="#0AB99D" stroke-width=3 stroke-linecap=round />
-                            </svg>
-                        </span>
-                        can <br> join with us.
+                        student can <br> join with us.
                     </h4>
                 </div>
             </div>

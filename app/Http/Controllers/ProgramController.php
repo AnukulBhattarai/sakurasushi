@@ -42,6 +42,9 @@ class ProgramController extends Controller
             'discount' => 'nullable|string',
             'category_id' => 'required|exists:categories,id',
             'curriculum' => 'nullable|string',
+            'skill' => 'nullable|string',
+            'class_day' => 'nullable|string',
+            'language' => 'nullable|string',
         ]);
         // dd($request->all());
         $image = $request->file('thumbnail');
@@ -50,6 +53,9 @@ class ProgramController extends Controller
 
         $extra = [
             'curriculum' => $request->curriculum ?? null,
+            'skill' => $request->skill ?? null,
+            'class_day' => $request->class_day ?? null,
+            'language' => $request->language ?? null,
         ];
 
         $program = Program::create([
@@ -106,6 +112,9 @@ class ProgramController extends Controller
             'category_id' => 'required|exists:categories,id',
             'curriculum' => 'nullable|string',
             'thumbnail' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'skill' => 'nullable|string',
+            'class_day' => 'nullable|string',
+            'language' => 'nullable|string',
         ]);
         if ($request->hasFile('thumbnail')) {
             $image = $request->file('thumbnail');
@@ -116,6 +125,9 @@ class ProgramController extends Controller
 
         $extra = [
             'curriculum' => $request->curriculum ?? null,
+            'skill' => $request->skill ?? null,
+            'class_day' => $request->class_day ?? null,
+            'language' => $request->language ?? null,
         ];
         // dd($extra);
         $program->update([

@@ -45,8 +45,8 @@
                                     </div>
 
                                     <div class="it-student-regiform-item">
-                                        <label>Payment Remaining</label>
-                                        <input type="number" name="payment_remaining" placeholder="Payment Due" />
+                                        <label>Discount(In NRS)</label>
+                                        <input type="number" name="discount" placeholder="Payment Due" />
                                     </div>
 
 

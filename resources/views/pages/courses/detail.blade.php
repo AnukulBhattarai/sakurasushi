@@ -88,7 +88,9 @@
                         <div class="it-course-sidebar-rate-box pb-20">
                             <div class="it-course-sidebar-rate d-flex justify-content-between align-items-center">
                                 <span>course fee</span>
-                                <span class="rate"><i>Npr. {{ $course->price }}</i></span>
+                                <span class="rate"><i>Npr. {{ $course->price }} @isset($course->discount)
+                                            <span class="text-danger">-({{ $course->discount }}%)</span>
+                                        @endisset </i></span>
                             </div>
                         </div>
                         <a href="{{ route('contact') }}" class="it-btn w-100 text-center mb-20">
@@ -105,15 +107,24 @@
                         </a>
                         <div class="it-evn-sidebar-list">
                             <ul>
+                                @isset($course->category->name)
+                                    <li><span>Category</span><span>{{ $course->category->name }}</span></li>
+                                @endisset
                                 @isset($course->duration)
                                     <li><span>Duration</span><span>{{ $course->duration }}</span></li>
                                 @endisset
                                 @isset($course->instructor)
                                     <li><span>Instructor</span><span>{{ $course->instructor }}</span></li>
                                 @endisset
-                                <li><span>skill level</span><span>Basic</span></li>
-                                <li><span>class day</span><span>Monday-friday</span></li>
-                                <li><span>language</span><span>English</span></li>
+                                @isset($course->extra['skill'])
+                                    <li><span>skill level</span><span>{{ $course->extra['skill'] }}</span></li>
+                                @endisset
+                                @isset($course->extra['class_day'])
+                                    <li><span>class day</span><span>{{ $course->extra['class_day'] }}</span></li>
+                                @endisset
+                                @isset($course->extra['language'])
+                                    <li><span>language</span><span>{{ $course->extra['language'] }}</span></li>
+                                @endisset
                             </ul>
                         </div>
                     </div>

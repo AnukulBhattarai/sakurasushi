@@ -7,11 +7,13 @@ use App\Http\Controllers\WebpageController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\ContactVideoController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HeaderController;
 use App\Http\Controllers\HomeBannerController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\OrganizationController;
@@ -260,6 +262,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/student-management/payments/store/{student}', [PaymentController::class, 'store'])->name('payments.store');
     Route::get('/student-management/payments/edit/{payment}', [PaymentController::class, 'edit'])->name('payments.edit');
     Route::post('/student-management/payments/update/{payment}', [PaymentController::class, 'update'])->name('payments.update');
+
+    Route::post('/invoice', [InvoiceController::class, 'invoice'])->name('invoice');
+    Route::get('/student-management/invoices', [InvoiceController::class, 'index'])->name('invoice.index');
+    Route::get('/student-management/invoices/show/{invoice}', [InvoiceController::class, 'show'])->name('invoice.show');
+
+
+    Route::post('/certificate', [CertificateController::class, 'certificate'])->name('certificate');
+    Route::get('/student-management/certificates', [CertificateController::class, 'index'])->name('certificate.index');
+    Route::get('/student-management/certificates/show/{certificate}', [CertificateController::class, 'show'])->name('certificate.show');
 });
 
 

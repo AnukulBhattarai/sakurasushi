@@ -2,12 +2,15 @@
     <button type="button" class="navbar-toggler text-muted mt-2 p-0 mr-3 collapseSidebar">
         <i class="fa-solid fa-bars"></i>
     </button>
+
+
     <ul class="nav">
         {{-- <li class="nav-item">
             <a class="nav-link text-muted my-2" href="#" id="modeSwitcher" data-mode="dark">
                 <i class="fe fe-sun fe-16"></i>
             </a>
         </li> --}}
+
 
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-muted pr-0" href="#" id="navbarDropdownMenuLink" role="button"
@@ -42,10 +45,12 @@
             </a>
         </div>
 
-        {{-- <p class="text-muted nav-heading mt-4 mb-1">
+        <a class="btn btn-primary" href="{{ route('student.index') }}">
+            <span class="item-text" style="font-size: 17px;">Student Management</span>
+        </a>
+        <p class="text-muted nav-heading mt-4 mb-1">
             <span>Admin Panel</span>
-        </p> --}}
-
+        </p>
         <ul class="navbar-nav flex-fill w-100 mb-2">
             <li class="nav-item w-100" @if (route('dashboard') == url()->current()) active @endif>
                 <a class="nav-link" href="{{ route('dashboard') }}">
@@ -53,6 +58,7 @@
                     <span class="ml-3 item-text">Dashboard</span>
                 </a>
             </li>
+
             <li class="nav-item w-100" @if (route('organization.index') == url()->current()) active @endif>
                 <a class="nav-link" href="{{ route('organization.index') }}">
                     <i class="fa-solid fa-building"></i>

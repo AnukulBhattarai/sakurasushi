@@ -5,7 +5,7 @@
             <div class="row align-items-end">
                 <div class="col-xl-8 col-lg-8 col-md-8">
                     <div class=it-blog-title-box>
-                        <span class=it-section-subtitle>BLOG POST</span>
+                        <span class=it-section-subtitle-2>BLOG POST</span>
                         <h4 class=it-section-title>Post Popular
                             <span class="p-relative z-index">Post.
                                 <svg class=title-shape-2 width=168 height=65 viewBox="0 0 168 65" fill=none

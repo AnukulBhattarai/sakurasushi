@@ -9,6 +9,22 @@
 
             <!-- Main Content -->
             <div class="col-md-9">
+                <form method="GET" action="{{ route('student.index') }}" class="d-flex align-items-center gap-2 flex-wrap">
+                    <div class="btn-group d-flex justify-content-center" role="group" aria-label="Payment Status">
+                        <button type="submit" name="payment_status" value=""
+                            class="btn btn-outline-secondary {{ request('payment_status') === null ? 'active' : '' }}">
+                            All
+                        </button>
+                        <button type="submit" name="payment_status" value="paid"
+                            class="btn btn-outline-secondary {{ request('payment_status') === 'paid' ? 'active' : '' }}">
+                            Paid
+                        </button>
+                        <button type="submit" name="payment_status" value="due"
+                            class="btn btn-outline-secondary {{ request('payment_status') === 'due' ? 'active' : '' }}">
+                            Due
+                        </button>
+                    </div>
+                </form>
                 <div class="edu-team-area team-area-1 gap-tb-text">
                     <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
                         <h3 class="mb-0">Students</h3>

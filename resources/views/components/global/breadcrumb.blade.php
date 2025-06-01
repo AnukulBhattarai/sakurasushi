@@ -1,5 +1,5 @@
 @props(['title'])
-<div class="it-breadcrumb-area it-breadcrumb-bg" style="background-color: #0bb89d">
+<div class="it-breadcrumb-area it-breadcrumb-bg" style="background-color: #0ab0f0">
     <div class="container">
         <div class="row">
             <div class="col-md-12 my-5">

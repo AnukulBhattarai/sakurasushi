@@ -1,12 +1,12 @@
 <div class="it-video-area it-video-bg p-relative fix pt-100 pb-95" data-background="{{ asset('img/video/banner.jpg') }}">
     <div class="it-video-shape-1 d-none d-lg-block">
-        <img src="{{ asset('img/video/shape-1-1.png') }}" alt="" />
+        <img src="{{ asset('img/video/shape-1-6.png') }}" alt="" />
     </div>
     <div class="it-video-shape-2 d-none d-lg-block">
         <img src="{{ asset('img/video/shape-1-2.png') }}" alt="" />
     </div>
     <div class="it-video-shape-3 d-none d-lg-block">
-        <img src="{{ asset('img/video/shape-1-3.png') }}" alt="" />
+        <img src="{{ asset('img/video/shape-1-7.png') }}" alt="" />
     </div>
     <div class="it-video-shape-4 d-none d-lg-block">
         <img src="{{ asset('img/video/shape-1-4.png') }}" alt="" />

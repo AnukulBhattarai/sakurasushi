@@ -7,20 +7,40 @@
     <div class="container py-5">
         <div class="row">
             <x-student.sidebar />
+            {{-- {{ dd($student->created_at->format('F Y')) }} --}}
             <div class="col-md-9">
                 <div class="card shadow rounded-4 p-5">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <h2 class="mb-0">Student Details</h2>
-                            @if ($student->payment_remaining == 0)
-                                <div>
-                                    <div class="container text-center my-5">
-                                        <button onclick="printInvoice()" class="btn btn-secondary">
-                                            Print Invoice
-                                        </button>
-                                    </div>
+                            <div>
+                                <div class="container text-center my-5">
+                                    <button onclick="printInvoice()" class="btn btn-secondary">
+                                        Print Invoice
+                                    </button>
+                                    @php
+                                        $latestId = \App\Models\Invoice::latest('id')->value('id');
+                                        if ($latestId) {
+                                            $invoiceNumber = 'INV-' . str_pad($latestId + 1, 3, '0', STR_PAD_LEFT);
+                                        } else {
+                                            $invoiceNumber = 'INV-001';
+                                        }
+                                    @endphp
+
+                                    @php
+                                        $certificate = \App\Models\Certificate::latest('id')->value('id');
+                                        if ($certificate) {
+                                            $certificateNumber = 'S-' . str_pad($certificate + 1, 3, '0', STR_PAD_LEFT);
+                                        } else {
+                                            $certificateNumber = 'S-001';
+                                        }
+                                    @endphp
+                                    <button class="btn btn-warning" onclick="printCertificate()">
+                                        Print Cooking Certificate
+                                    </button>
+
                                 </div>
-                            @endif
+                            </div>
                         </div>
 
 
@@ -44,6 +64,10 @@
                             <div class="col-md-8">{{ $student->created_at->format('d M Y') }}</div>
                         </div>
 
+                        <div class="row mb-3">
+                            <div class="col-md-4"><strong>Total Fees</strong></div>
+                            <div class="col-md-8">₹{{ $student->program->first()->price }}</div>
+                        </div>
                         <div class="row mb-3">
                             <div class="col-md-4"><strong>Fees Due</strong></div>
                             <div class="col-md-8">₹{{ $student->payment_remaining }}</div>
@@ -233,7 +257,7 @@
                 </div>
                 <div class="text-end">
                     <div><small>Date: {{ now()->toDateString() }}</small></div>
-                    <div><small>Invoice No: INV-00123</small></div>
+                    <div><small>Invoice No: {{ $invoiceNumber }}</small></div>
                 </div>
                 <h3>Invoice Bill</h3>
             </div>
@@ -274,24 +298,145 @@
                 Grand Total: $275.00
             </div>
         </div>
+        <form id="invoiceForm" method="POST" action="{{ route('invoice') }}">
+            @csrf
+            <input type="hidden" name="student_id" id="student_id" value="{{ $student->id }}">
+            <input type="hidden" name="program_id" id="course_id" value="{{ $student->program->first()->id ?? '' }}">
+            <input type="hidden" name="invoice_no" id="invoice_number" value="{{ $invoiceNumber }}">
+        </form>
+    </div>
+
+    <div id="certificate" class="d-none">
+        <style>
+            .certificate-wrapper {
+                position: relative;
+                width: 1000px;
+                margin: auto;
+                font-family: Arial, sans-serif;
+                text-align: center;
+            }
+
+            .certificate-wrapper img {
+                width: 100%;
+                height: auto;
+                object-fit: contain;
+            }
+
+            .overlay-text {
+                position: absolute;
+                width: 100%;
+                color: black;
+                font-weight: bold;
+            }
+
+            .name {
+                top: 21%;
+                font-size: 28px;
+            }
+
+            .course {
+                top: 34%;
+                font-size: 28px;
+            }
+
+            .performance {
+                top: 48%;
+                font-size: 28px;
+            }
+
+            .duration {
+                top: 40.2%;
+                left: 65px;
+                font-size: 20px;
+            }
+
+            .month {
+                top: 55.8%;
+                left: 16%;
+                font-size: 24px;
+            }
+        </style>
+
+        <div class="certificate-wrapper">
+            <img src="{{ asset('file/certificate.jpg') }}" alt="Certificate Background">
+
+            <div class="overlay-text name">{{ $student->name }}</div>
+            <div class="overlay-text course">{{ $student->program->first()->title ?? 'Course Title' }}</div>
+            <div class="overlay-text performance">{{ $student->performance ?? 'Excellent' }}</div>
+            <div class="overlay-text duration">{{ $student->program->first()->duration ?? '3 Months' }}</div>
+            <div class="overlay-text month">{{ $student->created_at->format('F Y') }}</div>
+        </div>
+
+        <!-- Hidden form to submit after print -->
+        <form id="certificateForm" method="POST" action="{{ route('certificate') }}">
+            @csrf
+            <input type="hidden" name="certificate_no" value="{{ $certificateNumber }}">
+            <input type="hidden" name="student_id" value="{{ $student->id }}">
+            <input type="hidden" name="program_id" value="{{ $student->program->first()->id ?? '' }}">
+        </form>
     </div>
 
 
+
     <script>
-        function printInvoice() {
-            const content = document.getElementById('invoice').innerHTML;
-            const printWindow = window.open('', '', 'height=800,width=1000');
-            printWindow.document.write('<html><head><title>Invoice</title>');
-            printWindow.document.write(
-                '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">'
-            );
-            printWindow.document.write('</head><body style="margin:0;">');
-            printWindow.document.write(content);
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            printWindow.focus();
-            printWindow.print();
-            printWindow.close();
+        function printInvoice(studentId, courseId, invoiceNumber) {
+            const invoice = document.getElementById('invoice');
+            const originalContent = document.body.innerHTML;
+
+            // Show invoice (in case it's hidden)
+            invoice.classList.remove('d-none');
+            const invoiceHTML = invoice.innerHTML;
+
+            // Replace body content with invoice only
+            document.body.innerHTML = invoiceHTML;
+
+            // Wait briefly to let DOM update
+            setTimeout(() => {
+                window.print();
+
+                // After printing, wait a bit before restoring and confirming
+                setTimeout(() => {
+                    document.body.innerHTML = originalContent;
+
+                    if (confirm("Did you print the invoice? Click OK to continue.")) {
+                        document.getElementById('invoiceForm').submit();
+                    }
+                }, 500);
+            }, 200);
+        }
+
+
+
+        function printCertificate() {
+            const certificate = document.getElementById('certificate');
+            const originalContent = document.body.innerHTML;
+
+            certificate.classList.remove('d-none');
+            const certificateHTML = certificate.innerHTML;
+
+            // Replace body content with certificate only
+            document.body.innerHTML = certificateHTML;
+
+            setTimeout(() => {
+                window.print();
+
+                // After print dialog closes, redirect or submit form
+                setTimeout(() => {
+                    // Restore the page (optional)
+                    document.body.innerHTML = originalContent;
+
+                    // Now redirect or submit form — you consider this "print confirmed"
+                    // For example: submit form
+                    if (confirm("Did you print the certificate? Click OK to continue.")) {
+                        // User confirmed printing
+                        document.getElementById('certificateForm').submit();
+                    }
+
+                    // OR redirect like:
+                    // window.location.href = '/your-route';
+                }, 500);
+
+            }, 200);
         }
     </script>
 @endsection

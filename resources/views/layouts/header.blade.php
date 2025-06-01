@@ -203,7 +203,12 @@
                                         </ul>
                                     </li>
 
-                                    <li><a href="{{ route('contact') }}">Contact</a></li>
+                                    @if (auth()->check())
+                                        <li><a href="{{ route('search.student') }}">
+                                                Student Management</a>
+                                        </li>
+                                    @endif
+
                                 </ul>
                             </nav>
                         </div>

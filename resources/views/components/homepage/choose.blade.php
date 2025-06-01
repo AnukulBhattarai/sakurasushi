@@ -1,14 +1,14 @@
 @props(['choose'])
 <div class="it-choose-area p-relative pt-180 pb-100">
     <div class="it-choose-shape-4 d-none d-md-block">
-        <img src="{{ asset('img/choose/shape-1-4.png') }}" alt="">
+        <img src="{{ asset('img/choose/shape-1-4.jpg') }}" alt="">
     </div>
     <div class=container>
         <div class="row align-items-center">
             <div class="col-xl-6 col-lg-6 mb-30">
                 <div class=it-choose-left>
                     <div class="it-choose-title-box mb-30">
-                        <span class=it-section-subtitle>{{ $choose->title }}</span>
+                        <span class=it-section-subtitle-2>{{ $choose->title }}</span>
                         <h4 class=it-section-title>{{ $choose->display_name }}
                         </h4>
                     </div>
@@ -39,10 +39,10 @@
                             @endisset
                         </div>
                         <div class=it-choose-shape-1>
-                            <img src="{{ asset('img/choose/shape-1-1.png') }}" alt="">
+                            <img src="{{ asset('img/choose/shape-1-5.png') }}" alt="">
                         </div>
                         <div class=it-choose-shape-2>
-                            <img src="{{ asset('img/choose/shape-1-2.png') }}" alt="">
+                            <img src="{{ asset('img/choose/shape-1-6.png') }}" alt="">
                         </div>
                         <div class="it-choose-shape-3 d-none d-lg-block">
                             <img src="{{ asset('img/choose/shape-1-3.png') }}" alt="">

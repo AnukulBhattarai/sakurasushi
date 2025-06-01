@@ -26,4 +26,12 @@ class Student extends Model
     {
         return $this->hasMany(Payment::class);
     }
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
+    public function certificates()
+    {
+        return $this->hasMany(Certificate::class);
+    }
 }

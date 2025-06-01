@@ -49,6 +49,15 @@
                     href="{{ route('payments.index') }}">
                     Payments
                 </a>
+                <a class="nav-link sidebar-link {{ request()->routeIs('invoice.*') ? 'active' : '' }}"
+                    href="{{ route('invoice.index') }}">
+                    Invoices
+                </a>
+                <a class="nav-link sidebar-link {{ request()->routeIs('certificate.*') ? 'active' : '' }}"
+                    href="{{ route('certificate.index') }}">
+                    Certificates
+                </a>
+
                 <!-- Add more links here -->
             </ul>
         </div>

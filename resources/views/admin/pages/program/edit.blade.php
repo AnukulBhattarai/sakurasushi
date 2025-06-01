@@ -18,6 +18,13 @@
             <x-admin.input name="discount" label="Course Discount Percentage" placeholder="Enter Course Discount"
                 :oldvalue="$program->discount" />
 
+            <x-admin.input name="skill" label="Course Skill Level" placeholder="Enter Course Skill Level"
+                :oldvalue="$program->extra['skill'] ?? ''" />
+
+            <x-admin.input name="class_day" label="Course Class Days" placeholder="Enter Class Days" :oldvalue="$program->extra['class_day'] ?? ''" />
+
+            <x-admin.input name="language" label="Course Language" placeholder="Enter Course Language" :oldvalue="$program->extra['language'] ?? ''" />
+
             <p class="mt-3">Category</p>
             <select name="category_id" class="form-control">
                 <option value="null">select</option>

@@ -16,6 +16,7 @@ class Program extends Model
         'category_id',
         'price',
         'extra',
+        'discount',
     ];
     protected $casts = [
         'extra' => 'array',
@@ -39,5 +40,17 @@ class Program extends Model
     public function leads()
     {
         return $this->hasMany(Leads::class);
+    }
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
+    public function certificates()
+    {
+        return $this->hasMany(Certificate::class);
     }
 }

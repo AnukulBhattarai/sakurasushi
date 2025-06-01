@@ -15,17 +15,17 @@
                         <img src="{{ asset('img/about/shape-1-1.png') }}" alt="">
                     </div>
                     <div class="it-about-shape-2 d-none d-md-block">
-                        <img src="{{ asset('img/about/shape-1-2.png') }}" alt="">
+                        <img src="{{ asset('img/about/shape-1-2.jpg') }}" alt="">
                     </div>
-                    <div class="it-about-shape-3 d-none d-md-block">
+                    {{-- <div class="it-about-shape-3 d-none d-md-block">
                         <img src="{{ asset('img/about/shape-1-3.png') }}" alt="">
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <div class="col-xl-6 col-lg-6">
                 <div class=it-about-right-box>
                     <div class="it-about-title-box mb-20">
-                        <span class=it-section-subtitle>{{ $about->title }}</span>
+                        <span class=it-section-subtitle-2>{{ $about->title }}</span>
                         <h4 class=it-section-title>{{ $about->sub_title }}
                         </h4>
                     </div>
