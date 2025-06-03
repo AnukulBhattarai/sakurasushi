@@ -68,6 +68,7 @@ class ProgramController extends Controller
             'thumbnail' => $path,
             'category_id' => $request->category_id,
             'extra' => $extra,
+            'status' => false,
         ]);
         if ($request->hasFile('image')) {
             foreach ($request->file('image') as $file) {

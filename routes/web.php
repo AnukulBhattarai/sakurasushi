@@ -20,6 +20,7 @@ use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PageTitleController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SettingController;
@@ -27,6 +28,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VideoController;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -173,11 +175,19 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/setting/delete/{setting}', [SettingController::class, 'destroy'])->name('setting.destroy');
 
     //video
-    Route::get('/admin/video', [ContactVideoController::class, 'index'])->name('video.index');
-    Route::post('/admin/video/store', [ContactVideoController::class, 'store'])->name('video.store');
-    Route::get('/admin/video/edit/{video}', [ContactVideoController::class, 'edit'])->name('video.edit');
-    Route::post('/admin/video/update/{video}', [ContactVideoController::class, 'update'])->name('video.update');
-    Route::post('/admin/video/delete/{video}', [ContactVideoController::class, 'destroy'])->name('video.destroy');
+    Route::get('/admin/video', [VideoController::class, 'index'])->name('video.index');
+    Route::post('/admin/video/store', [VideoController::class, 'store'])->name('video.store');
+    Route::get('/admin/video/edit/{video}', [VideoController::class, 'edit'])->name('video.edit');
+    Route::post('/admin/video/update/{video}', [VideoController::class, 'update'])->name('video.update');
+    Route::post('/admin/video/delete/{video}', [VideoController::class, 'destroy'])->name('video.destroy');
+
+
+    //video
+    Route::get('/admin/homepage-video', [ContactVideoController::class, 'index'])->name('homepageVideo.index');
+    Route::post('/admin/homepage-video/store', [ContactVideoController::class, 'store'])->name('homepageVideo.store');
+    Route::get('/admin/homepage-video/edit/{homepageVideo}', [ContactVideoController::class, 'edit'])->name('homepageVideo.edit');
+    Route::post('/admin/homepage-video/update/{homepageVideo}', [ContactVideoController::class, 'update'])->name('homepageVideo.update');
+    Route::post('/admin/homepage-video/delete/{homepageVideo}', [ContactVideoController::class, 'destroy'])->name('homepageVideo.destroy');
 
     //Newsletter
     Route::get('/admin/newsletter', [NewsletterController::class, 'index'])->name('newsletter.index');
@@ -219,13 +229,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/testimonials/delete/{testimonial}', [TestimonialController::class, 'destroy'])->name('testimonial.destroy');
     Route::get('/admin/testimonials/status-change', [TestimonialController::class, 'change_status'])->name('testimonial.status');
 
-    // //Resource
-    // Route::get('/admin/resources', [ResourceController::class, 'index'])->name('resource.index');
-    // Route::post('/admin/resources/store', [ResourceController::class, 'store'])->name('resource.store');
-    // Route::get('/admin/resources/edit/{id}', [ResourceController::class, 'edit'])->name('resource.edit');
-    // Route::post('/admin/resources/update/{resource}', [ResourceController::class, 'update'])->name('resource.update');
-    // Route::post('/admin/resources/delete/{resource}', [ResourceController::class, 'destroy'])->name('resource.destroy');
-    // Route::get('/admin/resources/status-change', [ResourceController::class, 'change_status'])->name('resource.status');
+    // publications
+    Route::get('/admin/publications', [PublicationController::class, 'index'])->name('publication.index');
+    Route::post('/admin/publications/store', [PublicationController::class, 'store'])->name('publication.store');
+    Route::get('/admin/publications/edit/{publication}', [PublicationController::class, 'edit'])->name('publication.edit');
+    Route::post('/admin/publications/update/{publication}', [PublicationController::class, 'update'])->name('publication.update');
+    Route::post('/admin/publications/delete/{publication}', [PublicationController::class, 'destroy'])->name('publication.destroy');
+    Route::get('/admin/publications/status-change', [PublicationController::class, 'change_status'])->name('publication.status');
 
 
 

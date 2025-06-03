@@ -129,6 +129,13 @@
                 </a>
             </li>
 
+            <li class="nav-item w-100" @if (route('homepageVideo.index') == url()->current()) active @endif>
+                <a class="nav-link" href="{{ route('homepageVideo.index') }}">
+                    <i class="fa-solid fa-video"></i>
+                    <span class="ml-3 item-text">Homepage Video</span>
+                </a>
+            </li>
+
             <li class="nav-item w-100" @if (route('video.index') == url()->current()) active @endif>
                 <a class="nav-link" href="{{ route('video.index') }}">
                     <i class="fa-solid fa-video"></i>
@@ -140,6 +147,12 @@
                 <a class="nav-link" href="{{ route('blog.index') }}">
                     <i class="fa-regular fa-newspaper"></i>
                     <span class="ml-3 item-text">Blogs</span>
+                </a>
+            </li>
+            <li class="nav-item w-100" @if (route('publication.index') == url()->current()) active @endif>
+                <a class="nav-link" href="{{ route('publication.index') }}">
+                    <i class="fa-solid fa-print"></i>
+                    <span class="ml-3 item-text">Publications</span>
                 </a>
             </li>
 

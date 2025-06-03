@@ -17,7 +17,7 @@
             <x-homepage.about :about="$about" />
         @endisset
 
-        <x-homepage.advertisement />
+        <x-homepage.advertisement :video="$homepageVideo" />
 
         @isset($choose)
             <x-homepage.choose :choose="$choose" />

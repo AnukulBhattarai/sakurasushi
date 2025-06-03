@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ContactVideo;
+use App\Models\Header;
 use App\Models\Message;
 use App\Models\Newsletter;
 use App\Models\Program;
@@ -12,9 +13,8 @@ class ContactController extends Controller
 {
     public function contact()
     {
-        // $programs = Program::where('status', true)->select('id', 'title')->get();
-        // $video = ContactVideo::where('type', 2)->first();
-        return view('pages.contact');
+        $pageHeader = Header::where('section', 'contact')->first();
+        return view('pages.contact', compact('pageHeader'));
     }
     public function store(Request $request)
     {

@@ -6,23 +6,21 @@
         <x-global.breadcrumb title="Publications" />
     @endisset
 
-    <!--<< Program Details Section Start >>-->
-    <section class="program-details-section fix section-padding">
+    <div class="it-course-area p-relative grey-bg pt-120 pb-120">
         <div class="container">
-            <div class="container">
-                <div class="row">
-                    @if (count($publications) == 0)
-                        <div class="text-center" style="min-height: 40vh;">
-                            No publications found!
-                        </div>
-                    @else
-                        @foreach ($publications as $publication)
-                            <x-cards.publication-card :publication="$publication" />
-                        @endforeach
-                    @endif
-                </div>
-                {{ $publications->links() }}
+            <div class="row">
+                @if (count($publications) == 0)
+                    <div class="text-center" style="min-height: 40vh;">
+                        No publications found!
+                    </div>
+                @else
+                    @foreach ($publications as $publication)
+                        <x-cards.publication-card :publication="$publication" />
+                    @endforeach
+                @endif
             </div>
+            {{ $publications->links() }}
+
         </div>
-    </section>
+    </div>
 @endsection

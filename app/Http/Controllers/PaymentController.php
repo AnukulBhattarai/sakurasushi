@@ -6,6 +6,7 @@ use Anuzpandey\LaravelNepaliDate\LaravelNepaliDate;
 use App\Models\Payment;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 
 class PaymentController extends Controller
@@ -54,6 +55,7 @@ class PaymentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(Request $request, Student $student)
     {
         $request->validate([
@@ -67,20 +69,32 @@ class PaymentController extends Controller
         if ($payment_remaining < 0) {
             return redirect()->back()->withErrors(['amount' => 'Payment exceeds the remaining balance.']);
         }
-        $student->update(['payment_remaining' => $payment_remaining]);
 
-        $paid_at =  LaravelNepaliDate::from($request->paid_at)->toNepaliDate();
+        DB::beginTransaction();
 
-        $payment = Payment::create([
-            'student_id' => $student->id,
-            'amount' => $request->amount,
-            'method' => $request->method,
-            'note' => $request->note,
-            'paid_at' => $paid_at,
-        ]);
+        try {
+            $student->update(['payment_remaining' => $payment_remaining]);
 
-        return redirect()->route('student.show', $student)->with('success', 'Payment recorded successfully.');
+            $paid_at = LaravelNepaliDate::from($request->paid_at)->toNepaliDate();
+
+            Payment::create([
+                'student_id' => $student->id,
+                'amount' => $request->amount,
+                'method' => $request->method,
+                'note' => $request->note,
+                'paid_at' => $paid_at,
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('student.show', $student)->with('success', 'Payment recorded successfully.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return redirect()->back()->with('error', 'Failed to record payment. Please try again.');
+        }
     }
+
 
     /**
      * Display the specified resource.

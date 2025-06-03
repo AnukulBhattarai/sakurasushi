@@ -11,12 +11,7 @@
 
             <x-admin.input name="link" label="Video" placeholder="Enter Video Link" type="url" required />
 
-            <p class="mt-3">Source</p>
-            <select name="source" class="form-control">
-                <option value="null">select</option>
-                <option value="youtube">YouTube</option>
-                <option value="facebook">Facebook</option>
-            </select>
+
 
             <div class="mt-5">
                 <input type="submit" value="Add" class="btn btn-success px-4 py-2 ">
@@ -29,7 +24,7 @@
 
 
 
-    <x-admin.table :values="$video" edit_route="video.edit" view_route="video.show" delete_route="video.destroy"
-        :hidden_field="['id', 'slug', 'created_at', 'extra', 'updated_at']" status_route="video.status" />
+    <x-admin.table :values="$homepageVideo" edit_route="homepageVideo.edit" view_route="homepageVideo.show"
+        delete_route="homepageVideo.destroy" :hidden_field="['id', 'slug', 'created_at', 'extra', 'updated_at']" status_route="homepageVideo.status" />
 
 @endsection

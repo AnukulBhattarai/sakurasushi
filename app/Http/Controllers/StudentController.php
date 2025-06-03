@@ -8,6 +8,8 @@ use App\Models\Program;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Dipesh\NepaliDate\NepaliDate;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class StudentController extends Controller
 {
@@ -65,38 +67,43 @@ class StudentController extends Controller
             'program_id' => 'required|exists:programs,id',
             'discount' => 'required|numeric|min:0',
         ]);
-        // dd($request->all());
 
-        $program = Program::find($request->program_id);
+        DB::beginTransaction();
 
-        $payment_remaining = $program->price - $request->discount;
+        try {
+            $program = Program::findOrFail($request->program_id);
+            $payment_remaining = $program->price - $request->discount;
 
-        $student = Student::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'payment_remaining' => $payment_remaining,
-        ]);
+            $student = Student::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'payment_remaining' => $payment_remaining,
+            ]);
 
+            $engDate = date('Y-m-d');
+            $paid_at = LaravelNepaliDate::from($engDate)->toNepaliDate();
 
-        // Create a new instance of NepaliDate with today's date
-        // $nepaliDate = new NepaliDate($today);
+            Payment::create([
+                'student_id' => $student->id,
+                'amount' => $request->discount,
+                'method' => 'Discount',
+                'note' => 'Discount',
+                'paid_at' => $paid_at,
+            ]);
 
-        $engDate = date('Y-m-d');
+            $program->students()->attach($student->id);
 
-        $paid_at =  LaravelNepaliDate::from($engDate)->toNepaliDate();
+            DB::commit();
 
-        $payment = Payment::create([
-            'student_id' => $student->id,
-            'amount' => $request->discount,
-            'method' => 'Discount',
-            'note' => 'Discount',
-            'paid_at' => $paid_at, // Use current timestamp
-        ]);
+            return redirect()->route('student.index')->with('success', 'Student created successfully.');
+        } catch (\Exception $e) {
+            DB::rollBack();
 
-        $program->students()->attach($student->id);
+            Log::error('Student creation failed: ' . $e->getMessage());
 
-        return redirect()->route('student.index')->with('success', 'Student created successfully.');
+            return redirect()->back()->withErrors(['error' => 'Something went wrong. Please try again.']);;
+        }
     }
 
     /**

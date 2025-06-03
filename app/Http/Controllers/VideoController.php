@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ContactVideo;
+use App\Models\Video;
 use Illuminate\Http\Request;
 
-class ContactVideoController extends Controller
+class VideoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $homepageVideo = ContactVideo::simplePaginate(15);
-        return view('admin.pages.homepageVideo.index', compact('homepageVideo'));
+        $video = Video::simplePaginate(15);
+        return view('admin.pages.video.index', compact('video'));
     }
 
     /**
@@ -32,20 +32,22 @@ class ContactVideoController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'link' => 'required|max:255',
+            'source' => 'nullable|max:255|in:youtube,facebook',
 
         ]);
-        $homepageVideo = ContactVideo::create([
+        $video = Video::create([
             'title' => $request->title,
             'link' => $request->link,
+            'source' => $request->source,
         ]);
 
-        return redirect()->route('homepageVideo.index')->withSuccess('Video added Successfully!');
+        return redirect()->route('video.index')->withSuccess('Video added Successfully!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(ContactVideo $homepageVideo)
+    public function show(Video $video)
     {
         //
     }
@@ -53,33 +55,33 @@ class ContactVideoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ContactVideo $homepageVideo)
+    public function edit(Video $video)
     {
-        return view('admin.pages.homepageVideo.edit', compact('homepageVideo'));
+        return view('admin.pages.video.edit', compact('video'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ContactVideo $homepageVideo)
+    public function update(Request $request, Video $video)
     {
         $request->validate([
             'title' => 'required|max:255',
             'link' => 'required|max:255',
         ]);
-        $homepageVideo->update([
+        $video->update([
             'link' => $request->link,
             'title' => $request->title,
         ]);
-        return redirect()->route('homepageVideo.index')->withSuccess('Video updated Successfully!');
+        return redirect()->route('video.index')->withSuccess('Video updated Successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ContactVideo $homepageVideo)
+    public function destroy(Video $video)
     {
-        $homepageVideo->delete();
-        return redirect()->route('homepageVideo.index')->withSuccess('Video deleted Successfully!');
+        $video->delete();
+        return redirect()->route('video.index')->withSuccess('Video deleted Successfully!');
     }
 }

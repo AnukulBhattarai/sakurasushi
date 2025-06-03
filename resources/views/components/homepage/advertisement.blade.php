@@ -1,3 +1,4 @@
+@props(['video'])
 <div class="it-video-area it-video-bg p-relative fix pt-100 pb-95" data-background="{{ asset('img/video/banner.jpg') }}">
     <div class="it-video-shape-1 d-none d-lg-block">
         <img src="{{ asset('img/video/shape-1-6.png') }}" alt="" />
@@ -21,7 +22,7 @@
                     <span>Join Our New Session</span>
                     <h3 class="it-video-title">
                         Call To Enroll Your Child <br />
-                        <a href="tel:+977{{ $organization->phone }}">(+977){{ $organization->phone }}</a>
+                        <a href="tel:+977{{ $organization->phone }}">+{{ $organization->phone }}</a>
                     </h3>
                     <div class="it-video-button">
                         <a class="it-btn" href="{{ route('contact') }}">
@@ -42,9 +43,13 @@
             <div class="col-xl-5 col-lg-5 col-md-3 col-sm-3">
                 <div class="it-video-play-wrap d-flex justify-content-start justify-content-md-end align-items-center">
                     <div class="it-video-play text-center">
-                        <a class="popup-video play" href="https://www.youtube.com/watch?v=TJ1e8hHFe6s"><i
-                                class="fas fa-play"></i></a>
-                        <a class="text" href="#">watch now</a>
+                        @isset($video->link)
+                            <a class="popup-video play" href="{{ $video->link }}"><i class="fas fa-play"></i></a>
+                        @else
+                            <a class="popup-video play" href="https://www.youtube.com/watch?v=TJ1e8hHFe6s"><i
+                                    class="fas fa-play"></i></a>
+                        @endisset
+                        {{-- <a class="text" href="#">watch now</a> --}}
                     </div>
                 </div>
             </div>

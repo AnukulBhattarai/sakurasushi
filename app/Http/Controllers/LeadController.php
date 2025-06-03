@@ -13,11 +13,19 @@ class LeadController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $leads = Leads::with('program')->latest()->simplePaginate(15);
+        $query = Leads::with('program')->latest();
+
+        if ($request->has('status') && in_array($request->status, ['pending', 'joined'])) {
+            $query->where('status', $request->status);
+        }
+
+        $leads = $query->simplePaginate(15);
+
         return view('pages.leads.index', compact('leads'));
     }
+
 
     /**
      * Show the form for creating a new resource.

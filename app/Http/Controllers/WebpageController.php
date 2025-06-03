@@ -21,6 +21,7 @@ use App\Models\Setting;
 use App\Models\Team;
 use App\Models\TeamCategory;
 use App\Models\Testimonial;
+use App\Models\Video;
 use App\Services\SearchService;
 use Illuminate\Http\Request;
 
@@ -39,8 +40,9 @@ class WebpageController extends Controller
         $choose = Setting::where('key', 'why-choose-us')->first();
         $homeBanner = HomeBanner::get();
         $categories = Categories::with('program')->get();
+        $homepageVideo = ContactVideo::latest()->first();
         // dd($choose);
-        return view('pages.home', compact('about', 'partners', 'courses', 'testimonials', 'team', 'blogs', 'choose', 'homeBanner', 'categories'));
+        return view('pages.home', compact('about', 'partners', 'courses', 'testimonials', 'team', 'blogs', 'choose', 'homeBanner', 'categories', 'homepageVideo'));
     }
     public function about()
     {
@@ -108,7 +110,7 @@ class WebpageController extends Controller
 
     public function video()
     {
-        $videos = ContactVideo::where('type', 1)->latest()->simplePaginate(15);
+        $videos = Video::latest()->simplePaginate(15);
         return view('pages.videos', compact('videos'));
     }
 
@@ -130,7 +132,11 @@ class WebpageController extends Controller
         return view('pages.courses.detail', compact('course'));
     }
 
-
+    public function publication()
+    {
+        $publications = Publication::where('status', true)->latest()->simplePaginate(15);
+        return view('pages.publication', compact('publications'));
+    }
 
 
     public function __construct(SearchService $searchService)

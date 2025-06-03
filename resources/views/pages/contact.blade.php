@@ -2,22 +2,26 @@
 @section('body')
     <x-global.breadcrumb title="Contact Us" />
 
-
     <div class="it-contact__area pt-120 pb-120">
         <div class="container">
             <div class="it-contact__wrap fix z-index-3 p-relative">
-                <div class="it-contact__shape-1 d-none d-xl-block">
+                {{-- <div class="it-contact__shape-1 d-none d-xl-block">
                     <img src="{{ asset('img/contact/shape-2-1.png') }}" alt="" />
-                </div>
+                </div> --}}
                 <div class="row align-items-end">
                     <div class="col-xl-7">
                         <div class="it-contact__right-box">
                             <div class="it-contact__section-box pb-20">
-                                <h4 class="it-contact__title pb-15">Get in Touch</h4>
-                                <p>
-                                    Suspendisse ultrice gravida dictum fusce placerat <br />
-                                    ultricies integer
-                                </p>
+                                @if ($pageHeader)
+                                    <h2 class="it-contact__title">{{ $pageHeader->title }}</h2>
+                                    <p>{{ $pageHeader->subtitle }}</p>
+                                @else
+                                    <h4 class="it-contact__title pb-15">Get in Touch</h4>
+                                    <p>
+                                        Suspendisse ultrice gravida dictum fusce placerat <br />
+                                        ultricies integer
+                                    </p>
+                                @endif
                             </div>
                             <div class="it-contact__content mb-55">
                                 <ul>
@@ -57,9 +61,6 @@
                                 </ul>
                             </div>
                             <div class="it-contact__bottom-box d-flex align-items-center justify-content-between">
-                                <div class="it-contact__scrool smooth">
-                                    <a><i class="fa-solid fa-arrow-down"></i>Customer Care</a>
-                                </div>
                                 <div class="it-footer-social">
                                     @isset($organization->facebook)
                                         <a href="{{ $organization->facebook }}"><i class="fa-brands fa-facebook-f"></i></a>
@@ -128,8 +129,8 @@
         </div>
     </div>
 
-    <section class="container px-0">
-        @isset($organization->location)
+    @isset($organization->location)
+        <section class="container px-0 mb-4">
             @php
                 $iframeCode = $organization->location;
 
@@ -154,6 +155,6 @@
                     loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
-        @endisset
-    </section>
+        </section>
+    @endisset
 @endsection

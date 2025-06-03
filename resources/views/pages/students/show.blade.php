@@ -104,7 +104,7 @@
                         </div>
 
                         {{-- Payment History --}}
-                        <div class="card shadow rounded-4">
+                        <div class="card shadow rounded-4 mb-4">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <h4 class="mb-0">Payment History</h4>
@@ -141,7 +141,12 @@
                                 @endif
                             </div>
                         </div>
-
+                        <div class="d-flex justify-content-center">
+                            <a href="{{ url()->previous() }}" class="btn px-3"
+                                style="background-color: #005174;color:#fff; font-size: 20px;">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

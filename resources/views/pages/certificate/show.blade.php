@@ -58,6 +58,13 @@
                             <div class="col-md-4"><strong>Total Fees</strong></div>
                             <div class="col-md-8">₹{{ $program->price }}</div>
                         </div>
+
+                        <div class="d-flex justify-content-center">
+                            <a href="{{ url()->previous() }}" class="btn px-3 mt-4"
+                                style="background-color: #005174;color:#fff; font-size: 20px;">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
