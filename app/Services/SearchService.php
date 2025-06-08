@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 
 class SearchService
 {
-    protected array $tables = ['blogs', 'teams', 'careers', 'schools', 'programs', 'services']; // Tables to search
+    protected array $tables = ['blogs', 'teams', 'events', 'programs', 'publications']; // Tables to search
     protected array $columns = ['name', 'title']; // Columns to search
 
     public function search($searchText)

@@ -273,10 +273,31 @@
                     <div class="col-xl-3 col-6">
                         <div class="it-header-2-right d-flex align-items-center justify-content-end">
                             <div class="it-header-2-icon">
-                                <a>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#searchModal">
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                 </a>
                             </div>
+                            <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content py-2">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="searchModalLabel">Search</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{{ route('search.post') }}" method="post">
+                                                @csrf
+                                                <input type="text" name="search" class="form-control rounded"
+                                                    placeholder="Type to search...">
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="it-header-2-button d-none d-md-block">
                                 <a class="it-btn" href="{{ route('contact') }}">
                                     <span>

@@ -74,6 +74,8 @@ Route::get('/publications', [WebpageController::class, 'publication'])->name('pu
 
 Route::get('/videos', [WebpageController::class, 'video'])->name('video');
 
+Route::get('/search', [WebpageController::class, 'searchResult'])->name('search');
+Route::post('/search', [WebpageController::class, 'search'])->name('search.post');
 
 Route::get('/login', [AuthController::class, 'loginPage'])->name('login');
 Route::post('/authenticate', [AuthController::class, 'login'])->name('authenticate');
