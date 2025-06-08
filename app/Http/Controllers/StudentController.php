@@ -20,6 +20,7 @@ class StudentController extends Controller
     {
         $query = $request->input('q');
         $paymentStatus = $request->input('payment_status');
+        $type = $request->input('status'); // 'current', 'completed', or null
 
         $students = Student::with('program')
             ->when($query, function ($q) use ($query) {
@@ -34,6 +35,9 @@ class StudentController extends Controller
             ->when($paymentStatus === 'due', function ($q) {
                 $q->where('payment_remaining', '>', 0);
             })
+            ->when(in_array($type, ['current', 'completed']), function ($q) use ($type) {
+                $q->where('type', $type);
+            })
             ->latest()
             ->simplePaginate(15);
 
@@ -44,6 +48,7 @@ class StudentController extends Controller
 
         return view('pages.students.index', compact('students'));
     }
+
 
 
     /**
@@ -166,5 +171,16 @@ class StudentController extends Controller
     public function search()
     {
         return view('pages.students.search');
+    }
+    public function change_status(Request $request)
+    {
+        // dd($request->all());
+        $student = Student::where('id', $request->student_id)->first();
+
+        $student->update([
+            'type' => $request->type,
+        ]);
+
+        return back()->withSuccess('The status has been switched!');
     }
 }

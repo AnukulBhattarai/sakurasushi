@@ -170,6 +170,8 @@ class ProgramController extends Controller
         $event->update([
             'status' => $status,
         ]);
+        // dd($event);
+
         return back()->withSuccess('The status has been switched!');
     }
 }

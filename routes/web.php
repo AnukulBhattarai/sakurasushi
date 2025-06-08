@@ -264,6 +264,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/student-management/students/edit/{student}', [StudentController::class, 'edit'])->name('student.edit');
     Route::post('/student-management/students/update/{student}', [StudentController::class, 'update'])->name('student.update');
     Route::post('/student-management/students/delete/{student}', [StudentController::class, 'destroy'])->name('student.destroy');
+    Route::post('/student-management/students/status-change', [StudentController::class, 'change_status'])->name('student.status');
+
 
     Route::get('/student-management/students/search', [StudentController::class, 'search'])->name('search.student');
 

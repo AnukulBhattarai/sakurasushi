@@ -43,6 +43,11 @@
                             </div>
                         </div>
 
+                        @php
+                            $price = $student->program->first()->price;
+                            $discount = $student->program->first()->discount;
+                            $discountAmount = ($price * $discount) / 100;
+                        @endphp
 
                         <div class="row mb-3">
                             <div class="col-md-4"><strong>Name:</strong></div>
@@ -66,12 +71,27 @@
 
                         <div class="row mb-3">
                             <div class="col-md-4"><strong>Total Fees</strong></div>
-                            <div class="col-md-8">₹{{ $student->program->first()->price }}</div>
+                            <div class="col-md-8">₹{{ $student->program->first()->price ?? '-' }}</div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-4"><strong>Fees Due</strong></div>
                             <div class="col-md-8">₹{{ $student->payment_remaining }}</div>
                         </div>
+
+                        <form action="{{ route('student.status') }}" class="mb-3" method="POST">
+                            @csrf
+                            <input type="hidden" name="student_id" value="{{ $student->id }}">
+                            <button type="submit" name="type" value="current"
+                                class="btn btn-outline-secondary me-2 {{ old('type', $student->type ?? '') === 'current' ? 'active' : '' }}">
+                                Current
+                            </button>
+
+                            <button type="submit" name="type" value="completed"
+                                class="btn btn-outline-success {{ old('type', $student->type ?? '') === 'completed' ? 'active' : '' }}">
+                                Completed
+                            </button>
+                        </form>
+
 
 
                         {{-- Enrolled Programs --}}
@@ -296,11 +316,11 @@
             </table>
 
             <div class="invoice-total">
-                Discount: 00
+                Discount: ₹{{ $discountAmount }}
             </div>
 
             <div class="invoice-total">
-                Grand Total: $275.00
+                Grand Total: ₹{{ number_format($price - $discountAmount, 2) }}
             </div>
         </div>
         <form id="invoiceForm" method="POST" action="{{ route('invoice') }}">

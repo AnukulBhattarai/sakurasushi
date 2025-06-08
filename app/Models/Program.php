@@ -17,6 +17,7 @@ class Program extends Model
         'price',
         'extra',
         'discount',
+        'status'
     ];
     protected $casts = [
         'extra' => 'array',

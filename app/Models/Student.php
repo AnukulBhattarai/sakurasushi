@@ -12,6 +12,7 @@ class Student extends Model
         'phone',
         'payment_remaining',
         'extra',
+        'type',
     ];
 
     protected $casts = [

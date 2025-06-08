@@ -9,8 +9,10 @@
 
             <!-- Main Content -->
             <div class="col-md-9">
-                <form method="GET" action="{{ route('student.index') }}" class="d-flex align-items-center gap-2 flex-wrap">
-                    <div class="btn-group d-flex justify-content-center" role="group" aria-label="Payment Status">
+                <form method="GET" action="{{ route('student.index') }}"
+                    class="d-flex align-items-center justify-content-between gap-2 flex-wrap mb-4">
+                    {{-- Payment Status Filter --}}
+                    <div class="btn-group" role="group" aria-label="Payment Status">
                         <button type="submit" name="payment_status" value=""
                             class="btn btn-outline-secondary {{ request('payment_status') === null ? 'active' : '' }}">
                             All
@@ -24,7 +26,24 @@
                             Due
                         </button>
                     </div>
+
+                    {{-- Status Filter --}}
+                    <div class="btn-group " role="group" aria-label="Status Filter">
+                        <button type="submit" name="status" value=""
+                            class="btn btn-outline-primary {{ request('status') === null ? 'active' : '' }}">
+                            All
+                        </button>
+                        <button type="submit" name="status" value="current"
+                            class="btn btn-outline-primary {{ request('status') === 'current' ? 'active' : '' }}">
+                            Current
+                        </button>
+                        <button type="submit" name="status" value="completed"
+                            class="btn btn-outline-primary {{ request('status') === 'completed' ? 'active' : '' }}">
+                            Completed
+                        </button>
+                    </div>
                 </form>
+
                 <div class="edu-team-area team-area-1 gap-tb-text">
                     <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
                         <h3 class="mb-0">Students</h3>
@@ -48,7 +67,7 @@
                     </div>
 
                     <x-student.table :values="$students" edit_route="student.edit" delete_route="student.destroy"
-                        view_route="student.show" status_route="student.status" :hidden_field="['id', 'email', 'slug', 'created_at', 'extra', 'updated_at']" />
+                        view_route="student.show" status_route="student.status" :hidden_field="['id', 'email', 'type', 'slug', 'created_at', 'extra', 'updated_at']" />
                 </div>
             </div>
         </div>

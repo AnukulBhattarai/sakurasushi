@@ -200,6 +200,10 @@
                                         <ul class="it-submenu submenu">
                                             <li><a href="{{ route('blogs') }}">Blogs</a></li>
                                             <li><a href="{{ route('gallery') }}">Gallery</a></li>
+                                            <li><a href="{{ route('publication') }}">Publications</a></li>
+                                            <li><a href="{{ route('video') }}">Videos</a></li>
+
+
                                         </ul>
                                     </li>
 
