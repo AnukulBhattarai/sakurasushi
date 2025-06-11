@@ -2,12 +2,11 @@
 
 @section('body')
     <x-global.breadcrumb title="Student Detail" />
-    {{-- {{ dd($student) }} --}}
+
 
     <div class="container py-5">
         <div class="row">
             <x-student.sidebar />
-            {{-- {{ dd($student->created_at->format('F Y')) }} --}}
             <div class="col-md-9">
                 <div class="card shadow rounded-4 p-5">
                     <div class="card-body">
@@ -16,7 +15,7 @@
                             <div>
                                 <div class="container text-center my-5">
                                     <button class="btn btn-warning" onclick="printCertificate()">
-                                        Print Cooking Certificate
+                                        Print Certificate
                                     </button>
 
                                 </div>
@@ -26,7 +25,7 @@
 
                         <div class="row mb-3">
                             <div class="col-md-4"><strong>Certificate No:</strong></div>
-                            <div class="col-md-8">{{ $student->certificate_no }}</div>
+                            <div class="col-md-8">{{ $certificate->certificate_no }}</div>
                         </div>
 
                         <div class="row mb-3">
@@ -74,52 +73,83 @@
 
     <div id="certificate" class="d-none">
         <style>
-            .certificate-wrapper {
-                position: relative;
-                width: 1000px;
-                margin: auto;
-                font-family: Arial, sans-serif;
-                text-align: center;
-            }
+            @media print {
+                @page {
+                    size: A4;
+                    margin: 0;
+                }
 
-            .certificate-wrapper img {
-                width: 100%;
-                height: auto;
-                object-fit: contain;
-            }
+                html,
+                body {
+                    margin: 0;
+                    padding: 0;
+                    width: 210mm;
+                    height: 297mm;
+                }
 
-            .overlay-text {
-                position: absolute;
-                width: 100%;
-                color: black;
-                font-weight: bold;
-            }
+                .certificate-wrapper {
+                    position: relative;
+                    width: 210mm;
+                    height: 297mm;
+                    overflow: hidden;
+                }
 
-            .name {
-                top: 21%;
-                font-size: 28px;
-            }
+                .certificate-wrapper img {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    /* object-fit: cover; */
+                    /* THIS makes sure it fills the area */
+                }
 
-            .course {
-                top: 34%;
-                font-size: 28px;
-            }
+                .overlay-text {
+                    position: absolute;
+                    width: 100%;
+                    color: black;
+                    font-weight: bold;
+                    text-align: center;
+                }
 
-            .performance {
-                top: 48%;
-                font-size: 28px;
-            }
+                .name {
+                    top: 24%;
+                    font-size: 34px;
+                }
 
-            .duration {
-                top: 40.2%;
-                left: 65px;
-                font-size: 20px;
-            }
+                .course {
+                    top: 35%;
+                    font-size: 34px;
+                }
 
-            .month {
-                top: 55.8%;
-                left: 16%;
-                font-size: 24px;
+                .performance {
+                    top: 48%;
+                    font-size: 34px;
+                }
+
+                .duration {
+                    top: 40.8%;
+                    left: -39px;
+                    font-size: 16px;
+                }
+
+                .month {
+                    top: 56.8%;
+                    left: 8%;
+                    font-size: 24px;
+                }
+
+                .certificateNumber {
+                    top: 73.3%;
+                    left: 36.5%;
+                    font-size: 18px;
+                }
+
+                .studentId {
+                    top: 73.3%;
+                    left: -17.8%;
+                    font-size: 18px;
+                }
             }
         </style>
 
@@ -131,6 +161,8 @@
             <div class="overlay-text performance">{{ $student->performance ?? 'Excellent' }}</div>
             <div class="overlay-text duration">{{ $student->program->first()->duration ?? '3 Months' }}</div>
             <div class="overlay-text month">{{ $student->created_at->format('F Y') }}</div>
+            <div class="overlay-text certificateNumber">{{ $certificate->certificate_no }}</div>
+            <div class="overlay-text studentId">{{ $student->id }}</div>
         </div>
     </div>
 
